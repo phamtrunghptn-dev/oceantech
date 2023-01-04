@@ -67,7 +67,7 @@ export default function EmployeeDiploma(props) {
     },
     {
       field: "content",
-      headerName: "Nội dung",
+      headerName: "Nội dung chứng chỉ",
       flex: 1,
       renderCell: ({ row }) => row?.content,
     },
