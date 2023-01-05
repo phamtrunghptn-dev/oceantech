@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import Header from '../../components/Header'
 import { Box, useTheme, IconButton, Button } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { emphasize, styled } from '@mui/material/styles'
@@ -15,8 +14,12 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import ConfirmationDialog from 'app/components/ConfirmationDialog'
 import DiaLogCreateNew from './Dialog/DialogCreateNew'
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 //
-import { getListDataEmployees } from './EmployeeManagerService/EmployeeManageService'
+import {
+  getListDataEmployees,
+  deleteEmployee,
+} from './EmployeeManagerService/EmployeeManageService'
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -74,7 +77,11 @@ export default function EmployeeManageCreate() {
   }, [])
   const updateDataEmployee = () => {
     getListDataEmployees().then((res) => {
-      setListDataEmployees(res.data)
+      setListDataEmployees(
+        res.data.filter(
+          (item) => item.status !== 'Đã duyệt' || item.status !== 'Kết thúc',
+        ),
+      )
     })
   }
 
@@ -83,27 +90,60 @@ export default function EmployeeManageCreate() {
     setShouldOpenEditDialog(true)
   }
 
+  const handleDeleteEmployee = () => {
+    deleteEmployee(employee).then(() => {
+      updateDataEmployee()
+      toast.success('Xóa thành công')
+      handleClose()
+    })
+  }
   const columns = [
     {
       field: 'action',
       headerName: 'Thao tác',
+      flex: 0.5,
+
       renderCell: ({ row }) => (
         <>
+          <IconButton
+            color="success"
+            onClick={() => {}}
+            disabled={
+              row.status === 'Lưu mới' ||
+              row.status === 'Kết thúc' ||
+              row.status === 'Từ chối' ||
+              row.status === 'Đã duyệt'
+            }
+          >
+            <RemoveRedEyeIcon />
+          </IconButton>
           <IconButton
             color="success"
             onClick={() => {
               handleEditEmployee(row)
             }}
+            disabled={
+              row.status === 'Chờ nộp hồ sơ' ||
+              row.status === 'Kết thúc' ||
+              row.status === 'Chờ duyệt' ||
+              row.status === 'Đã duyệt'
+            }
           >
             <EditIcon />
           </IconButton>
           <IconButton
             color="error"
             disabled={
+              row?.status === 'Chờ nộp hồ sơ' ||
+              row?.status === 'Chờ duyệt' ||
               row?.status === 'Yêu cầu bổ sung' ||
-              row?.status === 'Chờ nộp hồ sơ'
+              row?.status === 'Đã duyệt' ||
+              row?.status === 'Chờ duyệt'
             }
-            onClick={() => setShouldOpenConfirmDialog(true)}
+            onClick={() => {
+              setEmployee(row)
+              setShouldOpenConfirmDialog(true)
+            }}
           >
             <DeleteIcon />
           </IconButton>
@@ -189,7 +229,6 @@ export default function EmployeeManageCreate() {
             />
           </Breadcrumbs>
         </div>
-        <Header title="Tạo mới nhân viên" />
         <Button
           variant="contained"
           style={{
@@ -204,8 +243,8 @@ export default function EmployeeManageCreate() {
           Thêm
         </Button>
         <Box
-          m="40px 0 0 0"
-          height="75vh"
+          m="20px 0 0 0"
+          height="70vh"
           sx={{
             '& .MuiDataGrid-root': {
               border: 'none',
@@ -252,7 +291,7 @@ export default function EmployeeManageCreate() {
           title="Xác nhận"
           text="Bạn có muốn xóa hồ sơ nhân viên này"
           open={shouldOpenConfirmDialog}
-          onYesClick={handleDelete}
+          onYesClick={handleDeleteEmployee}
           onConfirmDialogClose={handleClose}
         />
       )}

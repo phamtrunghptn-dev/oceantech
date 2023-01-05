@@ -10,6 +10,10 @@ export const addEmployee = (obj) => {
 export const editEmployee = (obj) => {
   return axios.put(jsonAPI + "/listDataEmployees/" + obj.id, obj);
 };
+export const deleteEmployee = (obj) => {
+  return axios.delete(jsonAPI + "/listDataEmployees/" + obj.id);
+};
+//
 export const getTeam = () => {
   return axios.get(jsonAPI + "/Team");
 };
