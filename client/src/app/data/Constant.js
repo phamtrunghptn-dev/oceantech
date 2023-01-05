@@ -234,3 +234,27 @@ export const Related = [
     related: "Em"
   },
 ];
+export const Status = [
+  {
+    status: "Lưu mới"
+  },
+  {
+    status: "Chờ nộp hồ sơ"
+  },
+  {
+    status: "Chờ duyệt"
+  },
+  {
+    status: "Yêu cầu bổ sung"
+  },
+  {
+    status: "Từ chối"
+  },
+  {
+    status: "Đã duyệt"
+  },
+  {
+    status: "Kết thúc"
+  },
+
+];
