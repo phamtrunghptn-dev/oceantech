@@ -18,7 +18,9 @@ import EmployeeDiploma from "./EmployeeDiploma";
 import DialogAdditionalRequest from "./DialogAdditionalRequest";
 import DialogRefuse from "./DialogRefuse";
 import ConfirmationDialog from "app/components/ConfirmationDialog";
+import { toast } from 'react-toastify';
 import "./Dialog.scss";
+import {editEmployee} from "../LeadershipPendingService/LeadershipPendingService";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -66,6 +68,31 @@ export default function DialogProfile(props) {
     setValue(newValue);
   };
 
+  const handleApproved = () => {
+    setEmployeeProfile({...employee, status: "Đã duyệt"})
+  }
+
+  useEffect(()=>{
+    if(employeeProfile.status === "Đã duyệt"){
+      editEmployee(employeeProfile)
+      .then(res=> {
+        toast.success("Duyệt nhân viên thành công")
+        handleClose()
+      })
+    } else if(employeeProfile.status === "Yêu cầu bổ sung"){
+      editEmployee(employeeProfile)
+      .then(res=> {
+        toast.success("Gửi yêu cầu thành công")
+        handleClose()
+      })
+    } else if(employeeProfile.status === "Từ chối"){
+      editEmployee(employeeProfile)
+      .then(res=> {
+        toast.success("Bạn đã từ chối hồ sơ này")
+        handleClose()
+      })
+    }
+  },[employeeProfile])
   return (
     <>
       <Dialog open={open} maxWidth="lg" fullWidth>
@@ -159,7 +186,8 @@ export default function DialogProfile(props) {
         <DialogAdditionalRequest 
           open={shouldOpenDialogAdditionalRequest}
           handleCloseDialog={()=>setShouldOpenDialogAdditionalRequest(false)}
-          handleClose={handleClose}
+          employee={employeeProfile}
+          setEmployee={setEmployeeProfile}
         />
       )}
       {shouldOpenDialogRefuse && (
@@ -167,6 +195,8 @@ export default function DialogProfile(props) {
           open={shouldOpenDialogRefuse}
           handleCloseDialog={()=>setShouldOpenDialogRefuse(false)}
           handleClose={handleClose}
+          employee={employeeProfile}
+          setEmployee={setEmployeeProfile}
         />
       )}
       {shouldOpenDialogBrowser &&(
@@ -174,7 +204,7 @@ export default function DialogProfile(props) {
         title="Xác nhận"
         text="Bạn có muốn duyệt hồ sơ nhân viên này"
         open={shouldOpenDialogBrowser}
-        onYesClick={handleClose}
+        onYesClick={handleApproved}
         onConfirmDialogClose={()=>setshouldOpenDialogBrowser(false)}
         />
       )}

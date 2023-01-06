@@ -12,8 +12,13 @@ import {TextField, Typography } from '@material-ui/core';
 import Button from '@mui/material/Button';
 
 export default function DialogAdditionalRequest(props) {
-  const {open , handleCloseDialog, handleClose} = props;
-  const [content, setContent] = useState("")
+  const {open , handleCloseDialog, handleClose, employee, setEmployee} = props;
+  const [request, setRequest] = useState("")
+
+  const handleRequest = () => {
+    setEmployee({...employee, status: "Yêu cầu bổ sung", request: request})
+  }
+
   return (
     <Dialog open={open} fullWidth maxWidth="sm">
     <DialogTitle style={{padding: 0}}>
@@ -29,10 +34,10 @@ export default function DialogAdditionalRequest(props) {
             <Grid item xs={12} md={12}>
             <TextField 
               size="small"
-              label="Nội dung bổ sung" 
+              label="Nội dung yêu cầu" 
               variant="outlined" 
-              value={content}
-              onChange={(event)=>setContent(event.target.value)}
+              value={request}
+              onChange={(event)=>setRequest(event.target.value)}
               fullWidth
               multiline
               rows={4}
@@ -41,7 +46,7 @@ export default function DialogAdditionalRequest(props) {
             </Grid>
     </DialogContent>
     <DialogActions>
-      <Button className="button-confirm" onClick={handleClose}>Xác nhận</Button>
+      <Button className="button-confirm" onClick={handleRequest}>Xác nhận</Button>
       <Button className="button-cancel" onClick={handleCloseDialog}>Cancel</Button>
     </DialogActions>
   </Dialog>

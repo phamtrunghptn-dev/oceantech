@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Header from '../../components/Header';
 import { Box, useTheme, IconButton  } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -11,6 +11,9 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { emphasize, styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import HomeIcon from '@mui/icons-material/Home';
+import {getListDataEmployees} from "./LeadershipPendingService/LeadershipPendingService";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -36,9 +39,32 @@ const LeadershipPending = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  const [listEmployee, setListEmployee] = useState([]);
   const [shouldOpenProfile, setShouldOpenProfile] = useState(false);
   const [employee, setEmployee] = useState({});
-  const [pageSize, setPageSize] = React.useState(5);
+  const [pageSize, setPageSize] = React.useState(10);
+
+
+  useEffect(()=>{
+    updatePageData()
+  },[])
+
+  const updatePageData = () => {
+    getListDataEmployees()
+    .then((res)=> {
+      let arr = res.data;
+      setListEmployee(arr.filter((item)=> item.status === "Chờ duyệt" || item.status === "Chờ xử lý"))
+    })
+  }
+
+  useEffect(()=>{
+    console.log(listEmployee)
+  },[listEmployee])
+
+  const handleClose = () => {
+    setShouldOpenProfile(false);
+    updatePageData();
+  }
 
   const columns = [
     { field: 'action', headerName: 'Thao tác', renderCell: ({row}) => (
@@ -83,16 +109,20 @@ const LeadershipPending = () => {
       field: 'status',
       headerName: 'Trạng thái',
       flex: 1,
-      renderCell: ({ row }) => {
-        return ( row?.status )
-      },
+      renderCell: ({ row }) => ( row?.status )
+      ,
     },
   ];
-  const handleClose = () => {
-    setShouldOpenProfile(false)
-  }
+
+  
   return (
     <Box m="20px">
+       <ToastContainer
+        autoClose={2000}
+        draggable={false}
+        limit={3}
+        theme="colored"
+      />
       <div role="presentation">
       <Breadcrumbs aria-label="breadcrumb" marginBottom="20px">
         <StyledBreadcrumb
@@ -133,7 +163,7 @@ const LeadershipPending = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataTeam} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[5, 10, 20]} />
+        <DataGrid rows={listEmployee} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[10, 20, 50]} />
       </Box>
       {shouldOpenProfile && (
         <DialogProfile 

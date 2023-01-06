@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState,useEffect} from 'react';
 import Header from '../../components/Header';
 import { Box, useTheme, IconButton  } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
@@ -10,6 +10,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { emphasize, styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import HomeIcon from '@mui/icons-material/Home';
+import {getListDataEmployees} from "./LeadershipApprovedService/LeadershipApprovedService"
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -35,6 +36,8 @@ const LeadershipApproved = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [pageSize, setPageSize] = React.useState(5);
+  const [listEmployee, setListEmployee] = React.useState([]);
+
   const columns = [
     { field: 'action', headerName: 'Thao tác', renderCell: ({row}) => (
       <IconButton color="success" >
@@ -76,7 +79,19 @@ const LeadershipApproved = () => {
         return ( row?.status )
       },
     },
-  ]
+  ];
+
+  useEffect(()=>{
+    updatePageData()
+  },[])
+
+  const updatePageData = () => {
+    getListDataEmployees()
+    .then((res)=> {
+      setListEmployee(res.data.filter((item)=> item.status === "Đã duyệt"))
+    })
+  }
+
   return (
     <Box m="20px">
       <div role="presentation">
@@ -119,7 +134,7 @@ const LeadershipApproved = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataChecked} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[5, 10, 20]} />
+        <DataGrid rows={listEmployee} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[5, 10, 20]} />
       </Box>
     </Box>
   )
