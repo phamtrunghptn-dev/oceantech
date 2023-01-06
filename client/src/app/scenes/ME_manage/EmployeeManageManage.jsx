@@ -1,16 +1,17 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { Box, useTheme, IconButton, Button  } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { tokens } from '../../theme';
 import { mockDataManage } from '../../data/mockData';
 import moment from "moment";
 import Tooltip from '@mui/material/Tooltip';
-import DialogManage from './Dialog/DialogManage';
 import Breadcrumbs from '@mui/material/Breadcrumbs';
 import { emphasize, styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import HomeIcon from '@mui/icons-material/Home';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import {getListDataEmployees} from "./EmployeeManageService/EmployeeManageService";
+import DialogProfile from './Dialog/DialogProfile';
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -36,8 +37,21 @@ const EmployeeManageManage = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false)
-  const [employee, setEmployee] = useState({})
+  const [listEmployee, setlistEmployee] = useState([]);
+  const [employee, setEmployee] = useState({});
   const [pageSize, setPageSize] = React.useState(5);
+
+  useEffect(()=>{
+    updatePageData()
+  },[])
+
+
+  const updatePageData = () => {
+    getListDataEmployees()
+    .then(res=> {
+      setlistEmployee(res.data.filter((item)=> item.status === "Đã duyệt"))
+    })
+  } 
 
   const columns = [
     {
@@ -135,10 +149,10 @@ const EmployeeManageManage = () => {
           },
         }}
       >
-        <DataGrid rows={mockDataManage} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[5, 10, 20]}/>
+        <DataGrid rows={listEmployee} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[5, 10, 20]}/>
       </Box>
       {shouldOpenDialog && (
-        <DialogManage 
+        <DialogProfile 
           open={shouldOpenDialog}
           handleClose={handleClose} 
           employee={employee}
