@@ -200,6 +200,30 @@ export default function EmployeeManageCreate() {
     setShouldOpenConfirmDialog(false)
     setShouldOpenEditDialog(false)
     updateDataEmployee()
+    setEmployee({
+      code: '',
+      name: '',
+      gender: '',
+      ethnic: '',
+      religion: '',
+      image: '',
+      email: '',
+      phone: '',
+      birthDay: '',
+      birthplace: '',
+      position: '',
+      team: '',
+      salary: '',
+      identification: '',
+      issuedBy: '',
+      dateRange: '',
+      province: '',
+      district: '',
+      commune: '',
+      addressDetail: '',
+      listDiplomas: [],
+      listRelationships: [],
+    })
   }
 
   return (

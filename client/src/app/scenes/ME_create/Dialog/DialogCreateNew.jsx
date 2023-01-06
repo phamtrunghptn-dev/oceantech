@@ -144,7 +144,11 @@ export default function DiaLogCreateNew(props) {
   const handleChange = (event, newValue) => {
     setValue(newValue)
   }
-  console.log(listDataEmployees)
+  const handleChangeZZ = (option) => {
+    console.log('11', option)
+    formik.values.birthplace = option
+  }
+  console.log(employee)
   return (
     <Dialog open={open} fullWidth maxWidth="lg">
       <form onSubmit={formik.handleSubmit}>
@@ -180,6 +184,7 @@ export default function DiaLogCreateNew(props) {
                   formik={formik}
                   employee={employee}
                   setEmployee={setEmployee}
+                  handleChangeZZ={handleChangeZZ}
                 />
               </TabPanel>
               <TabPanel value={value} index={1}>
