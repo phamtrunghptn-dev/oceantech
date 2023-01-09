@@ -293,7 +293,7 @@ const DialogDegree = (props) => {
                       float: 'right',
                       margin: '10px 0 10px 0',
                     }}
-                    className="button-confirm"
+                    className="button-confirm1"
                     onClick={() => {
                       setSubmitDegree(true)
                     }}
@@ -318,7 +318,8 @@ const DialogDegree = (props) => {
                 color: colors.greenAccent[300],
               },
               '& .MuiDataGrid-columnHeaders': {
-                backgroundColor: colors.blueAccent[700],
+                color: '#fbfbfb',
+                backgroundColor: '#0D4C92',
                 borderBottom: 'none',
               },
               '& .MuiDataGrid-virtualScroller': {
@@ -326,10 +327,26 @@ const DialogDegree = (props) => {
               },
               '& .MuiDataGrid-footerContainer': {
                 borderTop: 'none',
-                backgroundColor: colors.blueAccent[700],
+                color: '#fbfbfb',
+                backgroundColor: '#0D4C92',
+              },
+              '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
+                color: '#fbfbfb',
+              },
+              '& .MuiDataGrid-footerContainer .MuiSvgIcon-root': {
+                color: '#fbfbfb',
+              },
+              '& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root': {
+                color: 'rgba(251,251,251,.5)',
               },
               '& .MuiCheckbox-root': {
                 color: `${colors.greenAccent[200]} !important`,
+              },
+              '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
+                outline: 'none !important',
+              },
+              '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus': {
+                outline: 'none !important',
               },
             }}
           >

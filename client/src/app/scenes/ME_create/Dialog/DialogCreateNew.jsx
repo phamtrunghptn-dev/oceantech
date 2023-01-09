@@ -88,10 +88,10 @@ export default function DiaLogCreateNew(props) {
         .max(new Date(), 'Ngày sinh không được lớn hơn ngày hiện tại!')
         .min(new Date(0), 'Ngày sinh không được nhỏ hơn ngày 01/01/1970!')
         .required('Vui lòng nhập Ngay sinh!'),
-      birthplace: Yup.object().required('Vui lòng chọn nơi sinh!'),
-      gender: Yup.string().required('Vui lòng chọn giới tính!'),
-      position: Yup.string().required('Vui lòng chọn chức vụ!'),
-      team: Yup.string().required('Vui lòng chọn team!'),
+      birthplace: Yup.object().nullable().required('Vui lòng chọn nơi sinh!'),
+      gender: Yup.object().nullable().required('Vui lòng chọn giới tính!'),
+      position: Yup.object().nullable().required('Vui lòng chọn chức vụ!'),
+      team: Yup.object().nullable().required('Vui lòng chọn team!'),
       salary: Yup.number()
         .typeError('Sai định dạng số!')
         .required('Vui lòng nhập mức lương!'),
@@ -99,7 +99,7 @@ export default function DiaLogCreateNew(props) {
         .min(12, 'CCCD không ít hơn 12 số')
         .max(12, 'CCCD không lớn hơn 12 số')
         .required('Vui lòng nhập CCCD!'),
-      issuedBy: Yup.object().required('Vui lòng chọn nơi cấp!'),
+      issuedBy: Yup.object().nullable().required('Vui lòng chọn nơi cấp!'),
       dateRange: Yup.string().required('Vui lòng nhập ngày cấp!'),
       email: Yup.string()
         .matches(
@@ -110,9 +110,11 @@ export default function DiaLogCreateNew(props) {
       phone: Yup.string()
         .matches(/(84|0[3|5|7|8|9])+([0-9]{8})\b/, 'Số điện thoại không hợp lệ')
         .required('Vui lòng nhập Số điện thoại!'),
-      province: Yup.object().required('Vui lòng chọn Tỉnh/Thành phố!'),
-      district: Yup.object().required('Vui lòng chọn Quận/Huyện!'),
-      commune: Yup.object().required('Vui lòng chọn Xã/Phường!'),
+      province: Yup.object()
+        .nullable()
+        .required('Vui lòng chọn Tỉnh/Thành phố!'),
+      district: Yup.object().nullable().required('Vui lòng chọn Quận/Huyện!'),
+      commune: Yup.object().nullable().required('Vui lòng chọn Xã/Phường!'),
       addressDetail: Yup.string().required('Vui lòng chọn Xã/Phường!'),
       ethnic: Yup.string().required('Vui lòng nhập dân tộc'),
       religion: Yup.string().required('Vui lòng nhập tôn giáo'),
@@ -166,8 +168,8 @@ export default function DiaLogCreateNew(props) {
                 <Tabs
                   value={value}
                   onChange={handleChange}
-                  textColor="secondary"
-                  indicatorColor="secondary"
+                  textColor="primary"
+                  indicatorColor="primary"
                 >
                   <Tab label="  Thông tin nhân viên  " {...a11yProps(0)} />
                   <Tab label="  Thông tin văn bằng  " {...a11yProps(1)} />
@@ -208,7 +210,7 @@ export default function DiaLogCreateNew(props) {
         <DialogActions>
           <Button
             variant="contained"
-            className="button-confirm"
+            className="button-confirm1"
             onClick={() => {
               setTypeOfSubmit('saveToSave')
               formik.handleSubmit()
