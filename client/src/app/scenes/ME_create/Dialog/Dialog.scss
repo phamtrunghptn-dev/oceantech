@@ -4,7 +4,7 @@
 }
 
 .title{
-    font-size: 30px;
+    font-size: 20px;
     letter-spacing: 2px;
     text-align: center;
     color: #02a18b;
@@ -12,23 +12,23 @@
 }
 
 .title-1{
-    font-size: 30px;
+    font-size: 20px;
     text-transform: uppercase;
     .MuiInputBase-root{
         input {
-            font-size: 30px;
+            font-size: 20px;
             text-transform: uppercase;
         }
     }
 }
 
 .title-2{
-    font-size: 22px;
+    font-size: 18px;
     font-weight: 600;
     text-transform: uppercase;
     .MuiInputBase-root{
         input{
-            font-size: 22px;
+            font-size: 18px;
             font-weight: 600;
             text-transform: uppercase;
             background-attachment: local;
@@ -59,24 +59,24 @@
     border-radius: 50%;
 }
 
-.font-16{
-    font-size: 16px;
+.font-14{
+    font-size: 14px;
     line-height: 2;
     .MuiInputBase-root{
         input{
-            font-size: 16px;
+            font-size: 14px;
             line-height: 1.5;
         }
     }
 }
 
 .font-22{
-    font-size: 22px;
+    font-size: 18px;
     line-height: 1.5;
 }
 
 .font-30{
-    font-size: 30px;
+    font-size: 20px;
     line-height: 1.5;
 }
 

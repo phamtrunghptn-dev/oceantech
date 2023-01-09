@@ -67,9 +67,10 @@ const LeadershipPending = () => {
   }
 
   const columns = [
-    { field: 'action', headerName: 'Thao tác', renderCell: ({row}) => (
+    { field: 'action', headerName: 'Thao tác', sortable: false, disableColumnMenu: true, renderCell: ({row}) => (
       <IconButton 
       color="success" 
+      sortable={false}
       onClick={()=>{
         setEmployee(row)
         setShouldOpenProfile(true)}
@@ -78,11 +79,13 @@ const LeadershipPending = () => {
         <RemoveRedEyeIcon />
       </IconButton>
     ) },
-    { field: 'code', headerName: 'Mã nhân viên', renderCell:({row}) => row?.code},
+    { field: 'code', sortable: false,  headerName: 'Mã nhân viên', disableColumnMenu: true, renderCell:({row}) => row?.code},
     {
       field: 'name',
       headerName: 'Họ và Tên',
       flex: 1,
+      sortable: false,
+      disableColumnMenu: true,
       renderCell:({row}) => row?.name
     },
     {
@@ -91,24 +94,32 @@ const LeadershipPending = () => {
       type: 'date',
       headerAlign: 'left',
       align: 'left',
+      sortable: false,
+      disableColumnMenu: true,
       renderCell:({row}) => moment(row?.birthDay).format("DD/MM/YYYY")
     },
     {
       field: 'phone',
       headerName: 'Phone Number',
       flex: 1,
+      sortable: false,
+      disableColumnMenu: true,
       renderCell:({row}) => row?.phone
     },
     {
       field: 'email',
       headerName: 'Email',
       flex: 1,
+      sortable: false,
+      disableColumnMenu: true,
       renderCell:({row}) => row?.email
     },
     {
       field: 'status',
       headerName: 'Trạng thái',
       flex: 1,
+      sortable: false,
+      disableColumnMenu: true,
       renderCell: ({ row }) => ( row?.status )
       ,
     },
@@ -148,7 +159,8 @@ const LeadershipPending = () => {
             color: colors.greenAccent[300],
           },
           '& .MuiDataGrid-columnHeaders': {
-            backgroundColor: colors.blueAccent[700],
+            color: "#fbfbfb",
+            backgroundColor: "#2d353c",
             borderBottom: 'none',
           },
           '& .MuiDataGrid-virtualScroller': {
@@ -156,14 +168,31 @@ const LeadershipPending = () => {
           },
           '& .MuiDataGrid-footerContainer': {
             borderTop: 'none',
-            backgroundColor: colors.blueAccent[700],
+            color: "#fbfbfb",
+            backgroundColor: "#2d353c",
+          },
+          '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
+            color: "#fbfbfb",
+          },
+          '& .MuiDataGrid-footerContainer .MuiSvgIcon-root': {
+            color: "#fbfbfb",
+          },
+          '& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root': {
+            color: "rgba(251,251,251,.5)",
           },
           '& .MuiCheckbox-root': {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus": {
+            outline: "none !important",
+          },
+          "& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus":
+            {
+              outline: "none !important",
+            },
         }}
       >
-        <DataGrid rows={listEmployee} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[10, 20, 50]} />
+        <DataGrid rows={listEmployee} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[10, 20, 50]} disableSelectionOnClick />
       </Box>
       {shouldOpenProfile && (
         <DialogProfile 

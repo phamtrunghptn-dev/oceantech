@@ -66,12 +66,12 @@ export default function EmployeeIndividualHistory(props) {
         </Grid>
         <Grid container item sm={8} xs={8} className="pdl-60 container-form">
           <Grid item sm={3} xs={3}>
-            <span className="font-16">Họ và tên (chữ in hoa): </span>
+            <span className="font-14">Họ và tên (chữ in hoa): </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.name}
-              className="dotted title-1 font-16"
+              className="dotted title-1 font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, name: event.target.value })
@@ -90,12 +90,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ paddingLeft: "10px", display: "flex" }}
         >
           <Grid item sm={5} xs={5}>
-            <span className="font-16">Giới tính: </span>
+            <span className="font-14">Giới tính: </span>
           </Grid>
           <Grid item sm={5} xs={5}>
             <TextField
               value={employee?.gender}
-              className="dotted title-1 font-16"
+              className="dotted title-1 font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, gender: event.target.value })
@@ -116,12 +116,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-16">Tên thường dùng: </span>
+            <span className="font-14">Tên thường dùng: </span>
           </Grid>
           <Grid item sm={10} xs={10}>
             <TextField
               value={employee?.name}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, name: event.target.value })
@@ -141,7 +141,7 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-16">Sinh ngày: </span>
+            <span className="font-14">Sinh ngày: </span>
           </Grid>
           <Grid item sm={10} xs={10}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -158,7 +158,7 @@ export default function EmployeeIndividualHistory(props) {
                     {...params}
                     type="date"
                     fullWidth
-                    className="dotted font-16"
+                    className="dotted font-14"
                     format="DD/MM/YYYY"
                     variant="standard"
                     InputProps={{
@@ -178,11 +178,11 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-16">Nơi sinh: </span>
+            <span className="font-14">Nơi sinh: </span>
           </Grid>
           <TextField
             value={employee?.birthplace?.name}
-            className="dotted font-16"
+            className="dotted font-14"
             fullWidth
             onChange={(event) =>
               setEmployee((employee) => ({
@@ -207,12 +207,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-16">Chỗ ở hiện nay: </span>
+            <span className="font-14">Chỗ ở hiện nay: </span>
           </Grid>
           <Grid item sm={2} xs={2}>
             <TextField
               value={employee?.addressDetail}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, addressDetail: event.target.value })
@@ -227,7 +227,7 @@ export default function EmployeeIndividualHistory(props) {
           <Grid item sm={2} xs={2}>
             <TextField
               value={employee?.commune?.name}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee((employee) => ({
@@ -245,7 +245,7 @@ export default function EmployeeIndividualHistory(props) {
           <Grid item sm={3} xs={3}>
             <TextField
               value={employee?.district?.name}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee((employee) => ({
@@ -263,7 +263,7 @@ export default function EmployeeIndividualHistory(props) {
           <Grid item sm={3} xs={3}>
             <TextField
               value={employee?.province?.name}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee((employee) => ({
@@ -286,12 +286,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={3} xs={3}>
-            <span className="font-16">Điện thoại: </span>
+            <span className="font-14">Điện thoại: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.phone}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, phone: event.target.value })
@@ -313,12 +313,12 @@ export default function EmployeeIndividualHistory(props) {
           justifyContent="space-around"
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-16">Email: </span>
+            <span className="font-14">Email: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.email}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, email: event.target.value })
@@ -339,12 +339,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-16">Dân tộc: </span>
+            <span className="font-14">Dân tộc: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.ethnic}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, ethnic: event.target.value })
@@ -364,12 +364,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={3} xs={3}>
-            <span className="font-16">Tôn giáo: </span>
+            <span className="font-14">Tôn giáo: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.religion}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, religion: event.target.value })
@@ -390,12 +390,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={3} xs={3}>
-            <span className="font-16">Số CCCD: </span>
+            <span className="font-14">Số CCCD: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.identification}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, identification: event.target.value })
@@ -415,7 +415,7 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={3} xs={3}>
-            <span className="font-16">Cấp ngày: </span>
+            <span className="font-14">Cấp ngày: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -432,7 +432,7 @@ export default function EmployeeIndividualHistory(props) {
                     {...params}
                     type="date"
                     fullWidth
-                    className="dotted font-16"
+                    className="dotted font-14"
                     format="DD/MM/YYYY"
                     variant="standard"
                     InputProps={{
@@ -453,12 +453,12 @@ export default function EmployeeIndividualHistory(props) {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={1} xs={1}>
-            <span className="font-16">Nơi cấp: </span>
+            <span className="font-14">Nơi cấp: </span>
           </Grid>
           <Grid item sm={11} xs={11}>
             <TextField
               value={employee?.issuedBy?.name}
-              className="dotted font-16"
+              className="dotted font-14"
               fullWidth
               onChange={(event) =>
                 setEmployee((employee) => ({
@@ -506,7 +506,7 @@ export default function EmployeeIndividualHistory(props) {
               <td>
                 <TextField
                   value={item?.name}
-                  className="dotted font-16"
+                  className="dotted font-14"
                   fullWidth
                   onChange={(event)=> {
                     let arr = employee?.listRelationships;
@@ -523,7 +523,7 @@ export default function EmployeeIndividualHistory(props) {
               <td>
                 <TextField
                   value={item?.relationship}
-                  className="dotted font-16"
+                  className="dotted font-14"
                   fullWidth
                   onChange={(event)=> {
                     let arr = employee?.listRelationships;
@@ -539,7 +539,7 @@ export default function EmployeeIndividualHistory(props) {
               <td>
                 <TextField
                   value={item?.gender}
-                  className="dotted font-16"
+                  className="dotted font-14"
                   fullWidth
                   onChange={(event)=> {
                     let arr = employee?.listRelationships;
@@ -569,7 +569,7 @@ export default function EmployeeIndividualHistory(props) {
                     {...params}
                     type="date"
                     fullWidth
-                    className="dotted font-16"
+                    className="dotted font-14"
                     format="DD/MM/YYYY"
                     variant="standard"
                     InputProps={{
@@ -583,7 +583,7 @@ export default function EmployeeIndividualHistory(props) {
               <td>
                 <TextField
                   value={item?.address}
-                  className="dotted font-16"
+                  className="dotted font-14"
                   fullWidth
                   onChange={(event)=> {
                     let arr = employee?.listRelationships;

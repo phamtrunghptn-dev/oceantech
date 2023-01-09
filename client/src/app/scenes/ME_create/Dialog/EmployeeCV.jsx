@@ -40,7 +40,7 @@ export default function EmployeeCV(props) {
               )}
             </Grid>
             <Grid item sm={9} xs={9}>
-              <span className="font-16">
+              <span className="font-14">
                 Giới tính: {employee?.gender}
               </span>
             </Grid>
@@ -50,7 +50,7 @@ export default function EmployeeCV(props) {
               <CakeIcon className="icon" />
             </Grid>
             <Grid item sm={9} xs={9}>
-              <span className="font-16">
+              <span className="font-14">
                 Ngày sinh:{" "}
                 {moment(employee?.birthDay).format("DD-MM-YYYY")}
               </span>
@@ -61,7 +61,7 @@ export default function EmployeeCV(props) {
               <PhoneIcon className="icon" />
             </Grid>
             <Grid item sm={9} xs={9}>
-              <span className="font-16">
+              <span className="font-14">
                 Số điện thoại: {employee?.phone}
               </span>
             </Grid>
@@ -71,7 +71,7 @@ export default function EmployeeCV(props) {
               <LocationOnIcon className="icon" />
             </Grid>
             <Grid item sm={9} xs={9}>
-              <span className="font-16">
+              <span className="font-14">
                 Địa chỉ:{" "}
                 {`${employee?.district?.name} - ${employee?.province?.name}`}
               </span>
@@ -82,7 +82,7 @@ export default function EmployeeCV(props) {
               <EmailIcon className="icon" />
             </Grid>
             <Grid item sm={9} xs={9}>
-              <span className="font-16">
+              <span className="font-14">
                 Email: {employee?.email}
               </span>
             </Grid>
@@ -284,12 +284,12 @@ export default function EmployeeCV(props) {
           </Grid>
         </Grid>
         <Grid container item sm={8} xs={8}>
-          <span className="font-16">Mô tả công việc</span>
+          <span className="font-14">Mô tả công việc</span>
         </Grid>
         <Grid container item sm={4} xs={4} justifyContent="center">
           <TextField
             value={employee?.employeeCV?.experience?.position}
-            className="dotted title-1 color-1 font-16 pdl-20"
+            className="dotted title-1 color-1 font-14 pdl-20"
             placeholder="Vị trí làm việc"
             fullWidth
             onChange={(event)=> setEmployee(employee => ({
@@ -305,7 +305,7 @@ export default function EmployeeCV(props) {
         <Grid item sm={6} xs={6}>
           <TextField
             value={employee?.employeeCV?.experience?.project?.name}
-            className="dotted title-1 color-1 font-16"
+            className="dotted title-1 color-1 font-14"
             placeholder="Dự án"
             fullWidth
             onChange={(event)=> setEmployee(employee => ({
