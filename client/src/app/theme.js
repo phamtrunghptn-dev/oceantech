@@ -132,13 +132,13 @@ export const themeSettings = (mode) => {
         ? {
             // palette values for dark mode
             primary: {
-              main: colors.primary[500],
+              main: `#2d353c !important`,
             },
             secondary: {
               main: `${colors.greenAccent[500]} !important`,
             },
             customColor: {
-              main: `#868dfb !important`,
+              main: `#2d353c !important`,
             },
             neutral: {
               dark: colors.grey[700],

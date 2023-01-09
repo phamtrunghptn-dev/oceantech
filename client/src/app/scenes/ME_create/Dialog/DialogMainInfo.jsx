@@ -11,7 +11,6 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import { Grid, MenuItem, styled } from '@material-ui/core'
 
-import './Dialog.css'
 import {
   Team,
   Provinces,

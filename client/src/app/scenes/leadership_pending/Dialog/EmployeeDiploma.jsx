@@ -94,7 +94,7 @@ export default function EmployeeDiploma(props) {
         },
         '& .MuiDataGrid-columnHeaders': {
           color: "#fbfbfb",
-          backgroundColor: "#2d353c",
+          backgroundColor: "#0D4C92",
           borderBottom: 'none',
         },
         '& .MuiDataGrid-virtualScroller': {
@@ -103,7 +103,7 @@ export default function EmployeeDiploma(props) {
         '& .MuiDataGrid-footerContainer': {
           borderTop: 'none',
           color: "#fbfbfb",
-          backgroundColor: "#2d353c",
+          backgroundColor: "#0D4C92",
         },
         '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
           color: "#fbfbfb",
