@@ -8,7 +8,7 @@ import Team from "./scenes/team";
 import LeadershipPending from './scenes/leadership_pending/LeadershipPending';
 import LeadershipApproved from "./scenes/leadership_approved/LeadershipApproved";
 import EmployeeManageCreate from "./scenes/ME_create/EmployeeManageCreate";
-import EmployeeManageManage from "./scenes/ME_manage/EmployeeManageManage";
+import EmployeeMainManager from "./scenes/ME_manage/EmployeeMainManager";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -27,7 +27,7 @@ function App() {
               <Route path="/leadership-pending" element={<LeadershipPending />} />
               <Route path="/leadership-approved" element={<LeadershipApproved />} />
               <Route path="/manage-employee-create" element={<EmployeeManageCreate />} />
-              <Route path="/manage_employee_manage" element={<EmployeeManageManage />} />
+              <Route path="/manage_employee_manage" element={<EmployeeMainManager />} />
             </Routes>
           </main>
         </div>

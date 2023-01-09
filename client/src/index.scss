@@ -17,7 +17,7 @@
 }
 
 .button-confirm1 {
-  background-color: #1976d2 !important;
+  background-color: #0d4c92 !important;
   color: #fbfbfb !important;
   :hover {
     opacity: 0.7;
@@ -25,20 +25,17 @@
 }
 
 .button-cancel {
-  background-color: #fbfbfb !important;
-  color: #1976d2 !important;
+  background-color: #ff9e43 !important;
+  color: #000 !important;
   border: 1px solid #1976d2;
   &:hover {
-    color: #fbfbfb !important;
-    .MuiTouchRipple-root{
-      background-color: #1976d2 !important;
-    }
+    opacity: 0.7;
   }
 }
 .button-cancel1 {
-  color: #f44336 !important;
+  color: #fbfbfb !important;
+  background-color: #f44336 !important;
   :hover {
     opacity: 0.7;
   }
 }
-// gdffdghfgdfs
