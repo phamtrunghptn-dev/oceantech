@@ -10,8 +10,6 @@ import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import { TextField, Typography } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import Autocomplete from "@mui/material/Autocomplete";
-import { Provinces, DegreeField } from "app/data/Constant";
 
 export default function DialogEditDiploma(props) {
   const { open, item, handleCloseDialog } = props;
@@ -57,38 +55,11 @@ export default function DialogEditDiploma(props) {
             />
           </Grid>
           <Grid item xs={5} md={5}>
-          <Autocomplete
-              freeSolo
-              size="small"
-              fullWidth
-              value={diploma?.field}
-              onChange={(event, newValue) =>
-                setDiploma((diploma) => ({
-                  ...diploma,
-                  field: newValue,
-                }))
-              }
-              options={DegreeField}
-              getOptionLabel={(option) => option.field}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  label="Lĩnh vực"
-                  className="font-15"
-                  fullWidth
-                  variant="outlined"
-              size="small"
-
-                />
-              )}
-            />
-          </Grid>
-          <Grid item xs={5} md={5}>
             <TextField
               size="small"
-              label="Ngày cấp"
+              label="Lĩnh vực"
               variant="outlined"
-              value={diploma?.field?.field}
+              value={diploma?.field}
               onChange={(event) =>
                 setDiploma({ ...diploma, field: event.target.value })
               }
@@ -96,29 +67,27 @@ export default function DialogEditDiploma(props) {
             />
           </Grid>
           <Grid item xs={5} md={5}>
-          <Autocomplete
-              freeSolo
+            <TextField
               size="small"
-              fullWidth
-              value={diploma?.issuedBy}
-              onChange={(event, newValue) =>
-                setDiploma((diploma) => ({
-                  ...diploma,
-                  issuedBy: newValue,
-                }))
+              label="Ngày cấp"
+              variant="outlined"
+              value={diploma?.field}
+              onChange={(event) =>
+                setDiploma({ ...diploma, field: event.target.value })
               }
-              options={DegreeField}
-              getOptionLabel={(option) => option.name}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  size="small"
-                  label="Nơi cấp"
-                  className="font-15"
-                  fullWidth
-                  variant="outlined"
-                />
-              )}
+              fullWidth
+            />
+          </Grid>
+          <Grid item xs={5} md={5}>
+            <TextField
+              size="small"
+              label="Nơi cấp"
+              variant="outlined"
+              value={diploma?.issuedBy?.name}
+              onChange={(event) =>
+                setDiploma({ ...diploma, issuedBy: event.target.value })
+              }
+              fullWidth
             />
           </Grid>
           <Grid item xs={12} md={12}>

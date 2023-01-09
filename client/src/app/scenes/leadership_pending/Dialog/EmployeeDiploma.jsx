@@ -6,6 +6,7 @@ import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DialogDiplomaForm from "./DialogDiplomaForm";
 import DialogEditDiploma from "./DialogEditDiploma";
+import moment from "moment"
 
 export default function EmployeeDiploma(props) {
   const { employee, setEmployee } = props;
@@ -53,17 +54,17 @@ export default function EmployeeDiploma(props) {
     {
       field: "field",
       headerName: "Lĩnh vực",
-      renderCell: ({ row }) => row?.field,
+      renderCell: ({ row }) => row?.field?.field,
     },
     {
       field: "date",
       headerName: "Ngày cấp",
-      renderCell: ({ row }) => row?.date,
+      renderCell: ({ row }) => moment(row?.date).format("DD/MM/YYYY"),
     },
     {
       field: "place",
       headerName: "Nơi cấp",
-      renderCell: ({ row }) => row?.place,
+      renderCell: ({ row }) => row?.place?.name,
     },
     {
       field: "content",
