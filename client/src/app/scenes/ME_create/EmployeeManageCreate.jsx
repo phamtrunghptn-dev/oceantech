@@ -47,23 +47,23 @@ export default function EmployeeManageCreate() {
   const [employee, setEmployee] = useState({
     code: '',
     name: '',
-    gender: '',
+    gender: null,
     ethnic: '',
     religion: '',
     image: '',
     email: '',
     phone: '',
     birthDay: '',
-    birthplace: '',
-    position: '',
-    team: '',
+    birthplace: null,
+    position: null,
+    team: null,
     salary: '',
     identification: '',
-    issuedBy: '',
+    issuedBy: null,
     dateRange: '',
-    province: '',
-    district: '',
-    commune: '',
+    province: null,
+    district: null,
+    commune: null,
     addressDetail: '',
     listDiplomas: [],
     listRelationships: [],
@@ -79,7 +79,11 @@ export default function EmployeeManageCreate() {
     getListDataEmployees().then((res) => {
       setListDataEmployees(
         res.data.filter(
-          (item) => item.status !== 'Đã duyệt' || item.status !== 'Kết thúc',
+          (item) =>
+            item.status === 'Lưu mới' ||
+            item.status === 'Từ chối' ||
+            item.status === 'Yêu cầu bổ sung' ||
+            item.status === ' Chờ xử lý',
         ),
       )
     })
@@ -109,10 +113,10 @@ export default function EmployeeManageCreate() {
             color="success"
             onClick={() => {}}
             disabled={
-              row.status === 'Lưu mới' ||
+              row.status === 'Yêu cầu bổ sung' ||
               row.status === 'Kết thúc' ||
-              row.status === 'Từ chối' ||
-              row.status === 'Đã duyệt'
+              row.status === 'Chờ nộp hồ sơ' ||
+              row.status === 'Lưu mới'
             }
           >
             <RemoveRedEyeIcon />
@@ -126,7 +130,9 @@ export default function EmployeeManageCreate() {
               row.status === 'Chờ nộp hồ sơ' ||
               row.status === 'Kết thúc' ||
               row.status === 'Chờ duyệt' ||
-              row.status === 'Đã duyệt'
+              row.status === 'Đã duyệt' ||
+              row.status === 'Từ chối' ||
+              row.status === 'Chờ xử lý'
             }
           >
             <EditIcon />
@@ -138,7 +144,8 @@ export default function EmployeeManageCreate() {
               row?.status === 'Chờ duyệt' ||
               row?.status === 'Yêu cầu bổ sung' ||
               row?.status === 'Đã duyệt' ||
-              row?.status === 'Chờ duyệt'
+              row?.status === 'Chờ duyệt' ||
+              row?.status === 'Từ chối'
             }
             onClick={() => {
               setEmployee(row)
@@ -255,19 +262,13 @@ export default function EmployeeManageCreate() {
         </div>
         <Button
           variant="contained"
-          style={{
-            backgroundColor: colors.blueAccent[700],
-            color: colors.grey[100],
-            padding: '8px 22px',
-            fontSize: '0.9375rem',
-          }}
-          size="small"
+          className="button-confirm1"
           onClick={() => setShouldOpenEditDialog(true)}
         >
           Thêm
         </Button>
         <Box
-          m="20px 0 0 0"
+          m="10px 0 0 0"
           height="70vh"
           sx={{
             '& .MuiDataGrid-root': {
@@ -280,7 +281,8 @@ export default function EmployeeManageCreate() {
               color: colors.greenAccent[300],
             },
             '& .MuiDataGrid-columnHeaders': {
-              backgroundColor: colors.blueAccent[700],
+              color: '#fbfbfb',
+              backgroundColor: '#0D4C92',
               borderBottom: 'none',
             },
             '& .MuiDataGrid-virtualScroller': {
@@ -288,10 +290,26 @@ export default function EmployeeManageCreate() {
             },
             '& .MuiDataGrid-footerContainer': {
               borderTop: 'none',
-              backgroundColor: colors.blueAccent[700],
+              color: '#fbfbfb',
+              backgroundColor: '#0D4C92',
+            },
+            '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
+              color: '#fbfbfb',
+            },
+            '& .MuiDataGrid-footerContainer .MuiSvgIcon-root': {
+              color: '#fbfbfb',
+            },
+            '& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root': {
+              color: 'rgba(251,251,251,.5)',
             },
             '& .MuiCheckbox-root': {
               color: `${colors.greenAccent[200]} !important`,
+            },
+            '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
+              outline: 'none !important',
+            },
+            '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus': {
+              outline: 'none !important',
             },
           }}
         >

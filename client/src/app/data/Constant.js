@@ -256,5 +256,8 @@ export const Status = [
   {
     status: "Kết thúc"
   },
+  {
+    status: "Chờ xử lý"
+  }
 
 ];

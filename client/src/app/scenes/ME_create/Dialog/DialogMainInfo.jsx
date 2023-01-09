@@ -10,6 +10,8 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import { Grid, MenuItem, styled } from '@material-ui/core'
+import Autocomplete from '@mui/material/Autocomplete'
+import './Dialog.css'
 
 import {
   Team,
@@ -63,25 +65,26 @@ export default function DialogMainInfo(props) {
                     />
                   </Grid>
                   <Grid item lg={3}>
-                    <TextField
-                      fullWidth
-                      select
-                      label="Giới tính"
-                      type="text"
-                      variant="outlined"
-                      name="gender"
-                      value={formik.values.gender}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={formik.errors.gender && formik.touched.gender}
-                      helperText={formik.errors.gender}
-                    >
-                      {Gender.map((option) => (
-                        <MenuItem key={option.id} value={option.gender}>
-                          {option.gender}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      fullWidth
+                      disablePortal
+                      value={formik.values.gender || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('gender', newValue)
+                      }}
+                      options={Gender}
+                      getOptionLabel={(option) => option.gender}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          fullWidth
+                          label="Giới tính"
+                          error={formik.errors.gender && formik.touched.gender}
+                          helperText={formik.errors.gender}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item lg={3}>
                     <TextField
@@ -171,33 +174,29 @@ export default function DialogMainInfo(props) {
                     </LocalizationProvider>{' '}
                   </Grid>
                   <Grid item lg={3}>
-                    <TextField
-                      fullWidth
-                      select
-                      label="Nơi sinh"
-                      type="text"
-                      variant="outlined"
-                      name="birthplace"
-                      value={formik.values.birthplace.name}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={
-                        formik.errors.birthplace && formik.touched.birthplace
-                      }
-                      helperText={formik.errors.birthplace}
-                    >
-                      {Provinces.map((option) => (
-                        <MenuItem
-                          key={option.id}
-                          value={option}
-                          onClick={(e) => {
-                            handleChangeZZ(option)
-                          }}
-                        >
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>{' '}
+                      fullWidth
+                      disablePortal
+                      value={formik.values.birthplace || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('birthplace', newValue)
+                      }}
+                      options={Provinces}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField
+                          fullWidth
+                          {...params}
+                          label="Nơi sinh"
+                          error={
+                            formik.errors.birthplace &&
+                            formik.touched.birthplace
+                          }
+                          helperText={formik.errors.birthplace}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item lg={3}>
                     <TextField
@@ -232,67 +231,76 @@ export default function DialogMainInfo(props) {
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item lg={3}>
-                    <TextField
-                      select
-                      fullWidth
-                      label="Tỉnh/Thành phố"
-                      type="text"
-                      variant="outlined"
-                      name="province"
-                      value={formik.values.province}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={formik.errors.province && formik.touched.province}
-                      helperText={formik.errors.province}
-                    >
-                      {Provinces.map((option) => (
-                        <MenuItem key={option.id} value={option}>
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      fullWidth
+                      disablePortal
+                      value={formik.values.province || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('province', newValue)
+                      }}
+                      options={Provinces}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField
+                          fullWidth
+                          {...params}
+                          label="Tỉnh/Thành phố"
+                          error={
+                            formik.errors.province && formik.touched.province
+                          }
+                          helperText={formik.errors.province}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item lg={3}>
-                    <TextField
-                      select
-                      fullWidth
-                      label="Quận/Huyện"
-                      type="text"
-                      variant="outlined"
-                      name="district"
-                      value={formik.values.district}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={formik.errors.district && formik.touched.district}
-                      helperText={formik.errors.district}
-                    >
-                      {Districts.map((option) => (
-                        <MenuItem key={option.id} value={option}>
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      fullWidth
+                      disablePortal
+                      value={formik.values.district || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('district', newValue)
+                      }}
+                      options={Districts}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField
+                          fullWidth
+                          {...params}
+                          label="Quận/Huyện"
+                          error={
+                            formik.errors.district && formik.touched.district
+                          }
+                          helperText={formik.errors.district}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item lg={3}>
-                    <TextField
-                      select
-                      fullWidth
-                      label="Xã/Phường"
-                      type="text"
-                      variant="outlined"
-                      name="commune"
-                      value={formik.values.commune}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={formik.errors.commune && formik.touched.commune}
-                      helperText={formik.errors.commune}
-                    >
-                      {Wards.map((option) => (
-                        <MenuItem key={option.id} value={option}>
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      fullWidth
+                      disablePortal
+                      value={formik.values.commune || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('commune', newValue)
+                      }}
+                      options={Wards}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField
+                          fullWidth
+                          {...params}
+                          label="Xã/Phường"
+                          error={
+                            formik.errors.commune && formik.touched.commune
+                          }
+                          helperText={formik.errors.commune}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item lg={3}>
                     <TextField
@@ -370,25 +378,28 @@ export default function DialogMainInfo(props) {
                     </LocalizationProvider>
                   </Grid>
                   <Grid item lg={3}>
-                    <TextField
-                      fullWidth
-                      select
-                      label="Nơi cấp"
-                      type="text"
-                      variant="outlined"
-                      name="issuedBy"
-                      value={formik.values.issuedBy}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={formik.errors.issuedBy && formik.touched.issuedBy}
-                      helperText={formik.errors.issuedBy}
-                    >
-                      {Provinces.map((option) => (
-                        <MenuItem key={option.id} value={option}>
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      fullWidth
+                      disablePortal
+                      value={formik.values.issuedBy || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('issuedBy', newValue)
+                      }}
+                      options={Provinces}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField
+                          fullWidth
+                          {...params}
+                          label="Nơi cấp"
+                          error={
+                            formik.errors.issuedBy && formik.touched.issuedBy
+                          }
+                          helperText={formik.errors.issuedBy}
+                        />
+                      )}
+                    />
                   </Grid>
                 </Grid>
               </CardContent>
@@ -399,46 +410,50 @@ export default function DialogMainInfo(props) {
               <CardContent>
                 <Grid container spacing={2}>
                   <Grid item lg={3}>
-                    <TextField
-                      fullWidth
-                      select
-                      label="Chức vụ"
-                      type="text"
-                      variant="outlined"
-                      name="position"
-                      value={formik.values.position}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={formik.errors.position && formik.touched.position}
-                      helperText={formik.errors.position}
-                    >
-                      {Position.map((option) => (
-                        <MenuItem key={option.id} value={option.name}>
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      fullWidth
+                      disablePortal
+                      value={formik.values.position || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('position', newValue)
+                      }}
+                      options={Position}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField
+                          fullWidth
+                          {...params}
+                          label="Vị trí"
+                          error={
+                            formik.errors.position && formik.touched.position
+                          }
+                          helperText={formik.errors.position}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item lg={3}>
-                    <TextField
-                      fullWidth
-                      select
-                      label="Nhóm"
-                      type="text"
-                      variant="outlined"
-                      name="team"
-                      value={formik.values.team}
+                    <Autocomplete
                       size="small"
-                      onChange={formik.handleChange}
-                      error={formik.errors.team && formik.touched.team}
-                      helperText={formik.errors.team}
-                    >
-                      {Team.map((option) => (
-                        <MenuItem fullWidth key={option.id} value={option.name}>
-                          {option.name}
-                        </MenuItem>
-                      ))}
-                    </TextField>
+                      fullWidth
+                      disablePortal
+                      value={formik.values.team || null}
+                      onChange={(event, newValue) => {
+                        formik.setFieldValue('team', newValue)
+                      }}
+                      options={Team}
+                      getOptionLabel={(option) => option.name}
+                      renderInput={(params) => (
+                        <TextField
+                          fullWidth
+                          {...params}
+                          label="Nhóm"
+                          error={formik.errors.team && formik.touched.team}
+                          helperText={formik.errors.team}
+                        />
+                      )}
+                    />
                   </Grid>
                   <Grid item lg={3}>
                     <TextField
