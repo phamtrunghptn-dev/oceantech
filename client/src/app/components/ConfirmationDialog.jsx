@@ -66,17 +66,15 @@ const ConfirmationDialog = ({
       </DialogContent>
       <DialogActions>
         <StyledButton
-          className="yesBtn"
+          className="yesBtn button-confirm1"
           variant="contained"
-          color="secondary"
           onClick={() => onYesClick(id)}
         >
           Đồng ý
         </StyledButton>
         <StyledButton
-          className="noBtn"
+          className="noBtn button-cancel"
           variant="contained"
-          style={{ backgroundColor: 'orange' }}
           onClick={onConfirmDialogClose}
         >
           Hủy

@@ -27,6 +27,7 @@ import {
   addEmployee,
   editEmployee,
 } from '../EmployeeManagerService/EmployeeManageService'
+import DialogProfile from './DialogProfile'
 function TabPanel(props) {
   const { children, value, index, ...other } = props
   return (
@@ -61,12 +62,12 @@ function a11yProps(index) {
 
 export default function DiaLogCreateNew(props) {
   const theme = useTheme()
-  const colors = tokens(theme.palette.mode)
   const { open, onClose } = props
-  const { listDataEmployees, setListDataEmployees } = props
   const { employee, setEmployee } = props
   const [value, setValue] = React.useState(0)
   const [typeOfSubmit, setTypeOfSubmit] = useState(null)
+  const [shouldOpenFormDialog, setShouldOpenFormDialog] = useState(false)
+  const [item, setItem] = useState({})
 
   const formik = useFormik({
     initialValues: employee,
@@ -135,11 +136,12 @@ export default function DiaLogCreateNew(props) {
             toast.success('Thêm thành công')
             setTypeOfSubmit(null)
             setEmployee({})
-            onClose()
+            onClose(values)
           })
         }
       } else if (typeOfSubmit === 'saveToContinue') {
-        values.status = ''
+        setShouldOpenFormDialog(true)
+        setItem(values)
       }
     },
   })
@@ -152,6 +154,7 @@ export default function DiaLogCreateNew(props) {
   }
   console.log(employee)
   return (
+    <>
     <Dialog open={open} fullWidth maxWidth="lg">
       <form onSubmit={formik.handleSubmit}>
         <DialogContent>
@@ -238,5 +241,15 @@ export default function DiaLogCreateNew(props) {
         </DialogActions>
       </form>
     </Dialog>
+            {shouldOpenFormDialog && (
+              <DialogProfile 
+                open={shouldOpenFormDialog}
+                handleCloseDialog={()=>setShouldOpenFormDialog(false)}
+                handleClose={onClose}
+                item={item}
+                setItem={setItem}
+              />
+            )}
+    </>
   )
 }

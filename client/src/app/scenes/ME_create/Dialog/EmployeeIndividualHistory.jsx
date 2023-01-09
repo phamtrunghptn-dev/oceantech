@@ -5,19 +5,12 @@ import { TextField } from "@mui/material";
 import { useEffect } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
+import Autocomplete from "@mui/material/Autocomplete";
+import { Provinces, Districts, Wards, Gender, Related } from "app/data/Constant";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function EmployeeIndividualHistory(props) {
   const { employee, setEmployee } = props;
-  console.log(employee);
-  const [listDiploma, setListDiploma] = useState([])
-  // useEffect(()=>{
-  //   setListDiploma(employee.listRelationships);
-  // },[])
-
-  // useEffect(()=>{
-  //   setEmployee(listDiploma);
-  // },[listDiploma])
   return (
     <Grid
       container
@@ -53,83 +46,85 @@ export default function EmployeeIndividualHistory(props) {
           <span className="font-30 uppercase fw-600">Sơ yếu lý lịch</span>
         </Grid>
       </Grid>
-      <Grid container style={{ padding: "20px 0 10px" }}>
-        <Grid
-          item
-          container
-          sm={12}
-          xs={12}
-          style={{ paddingLeft: "60px" }}
-          alignItems="center"
-        >
+      <Grid container style={{ padding: "20px 60px 10px" }}>
+        <Grid item container sm={12} xs={12} alignItems="center">
           <span className="font-22 uppercase fw-600">I. Bản thân</span>
         </Grid>
-        <Grid container item sm={8} xs={8} className="pdl-60 container-form">
+        <Grid container item sm={8} xs={8} className=" container-form">
           <Grid item sm={3} xs={3}>
-            <span className="font-14">Họ và tên (chữ in hoa): </span>
+            <span className="font-15">Họ và tên (chữ in hoa): </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.name}
-              className="dotted title-1 font-14"
+              className=" title-1 font-15 dotted"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, name: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
           </Grid>
         </Grid>
-        <Grid
+        {/* <Grid
           item
-          sm={2}
-          xs={2}
-          style={{ paddingLeft: "10px", display: "flex" }}
-        >
+          sm={1}
+          xs={1}
+        ></Grid> */}
+        <Grid item sm={2} xs={2} container className=" container-form ml-20">
           <Grid item sm={5} xs={5}>
-            <span className="font-14">Giới tính: </span>
+            <span className="font-15">Giới tính: </span>
           </Grid>
           <Grid item sm={5} xs={5}>
-            <TextField
-              value={employee?.gender}
-              className="dotted title-1 font-14"
+            <Autocomplete
+              freeSolo
               fullWidth
-              onChange={(event) =>
-                setEmployee({ ...employee, gender: event.target.value })
+              value={employee?.gender}
+              onChange={(event, newValue) =>
+                setEmployee((employee) => ({
+                  ...employee,
+                  gender: newValue,
+                }))
               }
-              variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              options={Gender}
+              getOptionLabel={(option) => option.gender}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
             />
           </Grid>
         </Grid>
-        <Grid item sm={2} xs={2}></Grid>
         <Grid
           item
           sm={10}
           xs={10}
-          className="pdl-60 container-form"
+          className=" container-form"
           style={{ marginTop: 20 }}
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-14">Tên thường dùng: </span>
+            <span className="font-15">Tên thường dùng: </span>
           </Grid>
           <Grid item sm={10} xs={10}>
             <TextField
               value={employee?.name}
-              className="dotted font-14"
+              className="dotted font-15"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, name: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
           </Grid>
         </Grid>
@@ -137,169 +132,193 @@ export default function EmployeeIndividualHistory(props) {
           item
           sm={10}
           xs={10}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
+          className=" container-form mt-20"
         >
-          <Grid item sm={2} xs={2}>
-            <span className="font-14">Sinh ngày: </span>
+        <Grid item sm={5} xs={5} className=" container-form">
+          <Grid item sm={4} xs={4}>
+            <span className="font-15">Sinh ngày: </span>
           </Grid>
-          <Grid item sm={10} xs={10}>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                inputFormat="DD/MM/YYYY"
-                value={employee?.birthDay || null}
-                onChange={(value) => {
-                  if (value) {
-                    setEmployee({ ...employee, birthDay: new Date(value) });
-                  }
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    type="date"
-                    fullWidth
-                    className="dotted font-14"
-                    format="DD/MM/YYYY"
-                    variant="standard"
-                    InputProps={{
-                      disableUnderline: true,
-                    }}
-                  />
-                )}
-              />
-            </LocalizationProvider>
-          </Grid>
+
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <DatePicker
+              inputFormat="DD/MM/YYYY"
+              value={employee?.birthDay || null}
+              onChange={(value) => {
+                if (value) {
+                  setEmployee({ ...employee, birthDay: new Date(value) });
+                }
+              }}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  type="date"
+                  fullWidth
+                  className="dotted font-15"
+                  format="DD/MM/YYYY"
+                  variant="standard"
+                />
+              )}
+            />
+          </LocalizationProvider>
         </Grid>
-        <Grid
-          item
-          sm={10}
-          xs={10}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
-        >
-          <Grid item sm={2} xs={2}>
-            <span className="font-14">Nơi sinh: </span>
+        <Grid item sm={5} xs={5} className=" container-form ml-20">
+          <Grid item sm={4} xs={4}>
+            <span className="font-15 mr-10">Nơi sinh: </span>
           </Grid>
-          <TextField
-            value={employee?.birthplace?.name}
-            className="dotted font-14"
+          <Autocomplete
+            freeSolo
             fullWidth
-            onChange={(event) =>
+            value={employee?.birthplace}
+            onChange={(event, newValue) =>
               setEmployee((employee) => ({
                 ...employee,
                 birthplace: {
-                  ...employee.birthplace,
-                  name: event.target.value,
+                  ...employee,
+                  birthplace: newValue,
                 },
               }))
             }
-            variant="standard"
-            InputProps={{
-              disableUnderline: true,
-            }}
+            options={Provinces}
+            getOptionLabel={(option) => option.name}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                size="small"
+                className="dotted font-15"
+                fullWidth
+                variant="standard"
+              />
+            )}
           />
+        </Grid>
         </Grid>
         <Grid
           item
           sm={10}
           xs={10}
-          className="pdl-60 container-form"
+          className=" container-form"
           style={{ marginTop: 20 }}
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-14">Chỗ ở hiện nay: </span>
+            <span className="font-15">Chỗ ở hiện nay: </span>
           </Grid>
           <Grid item sm={2} xs={2}>
             <TextField
               value={employee?.addressDetail}
-              className="dotted font-14"
+              className="dotted font-15"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, addressDetail: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
           </Grid>
           <span style={{ padding: 10 }}>-</span>
           <Grid item sm={2} xs={2}>
-            <TextField
-              value={employee?.commune?.name}
-              className="dotted font-14"
+            <Autocomplete
+              freeSolo
               fullWidth
-              onChange={(event) =>
+              value={employee?.commune}
+              onChange={(event, newValue) =>
                 setEmployee((employee) => ({
                   ...employee,
-                  commune: { ...employee.commune, name: event.target.value },
+                  commune: { ...employee, newValue },
                 }))
               }
-              variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              options={Wards}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
             />
           </Grid>
           <span style={{ padding: 10 }}>-</span>
           <Grid item sm={3} xs={3}>
-            <TextField
-              value={employee?.district?.name}
-              className="dotted font-14"
+            <Autocomplete
+              freeSolo
               fullWidth
-              onChange={(event) =>
+              value={employee?.district}
+              onChange={(event, newValue) =>
                 setEmployee((employee) => ({
                   ...employee,
-                  district: { ...employee.district, name: event.target.value },
+                  district: { ...employee, newValue },
                 }))
               }
-              variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              options={Districts}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
             />
           </Grid>
           <span style={{ padding: 10 }}>-</span>
           <Grid item sm={3} xs={3}>
-            <TextField
-              value={employee?.province?.name}
-              className="dotted font-14"
+            <Autocomplete
+              freeSolo
               fullWidth
-              onChange={(event) =>
+              value={employee?.province}
+              onChange={(event, newValue) =>
                 setEmployee((employee) => ({
                   ...employee,
-                  province: { ...employee.province, name: event.target.value },
+                  province: { ...employee, newValue },
                 }))
               }
-              variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              options={Provinces}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
             />
           </Grid>
         </Grid>
         <Grid
           item
+          sm={10}
+          xs={10}
+          className=" container-form mt-20"
+        >
+        <Grid
+          item
           sm={5}
           xs={5}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
+          className=" container-form"
         >
           <Grid item sm={3} xs={3}>
-            <span className="font-14">Điện thoại: </span>
+            <span className="font-15">Điện thoại: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.phone}
-              className="dotted font-14"
+              className="dotted font-15"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, phone: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
           </Grid>
         </Grid>
@@ -308,51 +327,54 @@ export default function EmployeeIndividualHistory(props) {
           container
           sm={5}
           xs={5}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
-          justifyContent="space-around"
+          className=" container-form"
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-14">Email: </span>
+            <span className="font-15">Email: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.email}
-              className="dotted font-14"
+              className="dotted font-15"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, email: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
           </Grid>
         </Grid>
-        <Grid item sm={2} xs={2}></Grid>
+        </Grid>
+        <Grid
+          item
+          sm={10}
+          xs={10}
+          className=" container-form mt-20"
+        >
         <Grid
           item
           sm={5}
           xs={5}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
+          className=" container-form"
         >
           <Grid item sm={2} xs={2}>
-            <span className="font-14">Dân tộc: </span>
+            <span className="font-15">Dân tộc: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.ethnic}
-              className="dotted font-14"
+              className="dotted font-15"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, ethnic: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
           </Grid>
         </Grid>
@@ -360,62 +382,63 @@ export default function EmployeeIndividualHistory(props) {
           item
           sm={5}
           xs={5}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
+          className=" container-form"
         >
           <Grid item sm={3} xs={3}>
-            <span className="font-14">Tôn giáo: </span>
+            <span className="font-15">Tôn giáo: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.religion}
-              className="dotted font-14"
+              className="dotted font-15"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, religion: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
           </Grid>
         </Grid>
-        <Grid item sm={2} xs={2}></Grid>
+        </Grid>
         <Grid
           item
-          sm={5}
-          xs={5}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
+          sm={10}
+          xs={10}
+          className=" container-form mt-20"
         >
-          <Grid item sm={3} xs={3}>
-            <span className="font-14">Số CCCD: </span>
+          <Grid item sm={2} xs={2}>
+            <span className="font-15">Số CCCD: </span>
           </Grid>
-          <Grid item sm={9} xs={9}>
             <TextField
               value={employee?.identification}
-              className="dotted font-14"
+              className="dotted font-15"
               fullWidth
               onChange={(event) =>
                 setEmployee({ ...employee, identification: event.target.value })
               }
               variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              // InputProps={{
+              //   disableUnderline: true,
+              // }}
             />
-          </Grid>
         </Grid>
+        <Grid
+          item
+          sm={10}
+          xs={10}
+          className=" container-form mt-20"
+        >
         <Grid
           item
           sm={5}
           xs={5}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
+          className=" container-form"
         >
           <Grid item sm={3} xs={3}>
-            <span className="font-14">Cấp ngày: </span>
+            <span className="font-15">Cấp ngày: </span>
           </Grid>
           <Grid item sm={9} xs={9}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -432,46 +455,53 @@ export default function EmployeeIndividualHistory(props) {
                     {...params}
                     type="date"
                     fullWidth
-                    className="dotted font-14"
+                    className="dotted font-15"
                     format="DD/MM/YYYY"
                     variant="standard"
-                    InputProps={{
-                      disableUnderline: true,
-                    }}
+                    // InputProps={{
+                    //   disableUnderline: true,
+                    // }}
                   />
                 )}
               />
             </LocalizationProvider>
           </Grid>
         </Grid>
-        <Grid item sm={2} xs={2}></Grid>
+        {/* <Grid item sm={2} xs={2}></Grid> */}
         <Grid
           item
-          sm={10}
-          xs={10}
-          className="pdl-60 container-form"
-          style={{ marginTop: 20 }}
+          sm={5}
+          xs={5}
+          className=" container-form"
         >
-          <Grid item sm={1} xs={1}>
-            <span className="font-14">Nơi cấp: </span>
+          <Grid item sm={3} xs={3} className="mr-10">
+            <span className="font-15">Nơi cấp: </span>
           </Grid>
-          <Grid item sm={11} xs={11}>
-            <TextField
-              value={employee?.issuedBy?.name}
-              className="dotted font-14"
+          <Grid item sm={9} xs={9}>
+          <Autocomplete
+              freeSolo
               fullWidth
-              onChange={(event) =>
+              value={employee?.issuedBy}
+              onChange={(event, newValue) =>
                 setEmployee((employee) => ({
                   ...employee,
-                  issuedBy: { ...employee.issuedBy, name: event.target.value },
+                  issuedBy: { ...employee, newValue },
                 }))
               }
-              variant="standard"
-              InputProps={{
-                disableUnderline: true,
-              }}
+              options={Provinces}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
             />
           </Grid>
+        </Grid>
         </Grid>
       </Grid>
       <Grid
@@ -479,8 +509,7 @@ export default function EmployeeIndividualHistory(props) {
         container
         sm={12}
         xs={12}
-        style={{ paddingLeft: "60px" }}
-        alignItems="center"
+        className=" container-form pdl-60"
       >
         <span className="font-22 uppercase fw-600">II. Quan hệ gia đình</span>
       </Grid>
@@ -488,8 +517,7 @@ export default function EmployeeIndividualHistory(props) {
         item
         sm={10}
         xs={10}
-        className="pdl-60 container-form"
-        style={{ marginTop: 20 }}
+        className=" container-form pdl-60 mt-20"
       >
         <table>
           <tr>
@@ -502,99 +530,119 @@ export default function EmployeeIndividualHistory(props) {
           </tr>
           {employee?.listRelationships.map((item, index) => (
             <tr key={index}>
-              <td>{index + 1}</td>
-              <td>
+              <td style={{width: "2%"}}>{index + 1}</td>
+              <td style={{width: "20%"}}>
                 <TextField
                   value={item?.name}
-                  className="dotted font-14"
+                  className="dotted font-15"
                   fullWidth
-                  onChange={(event)=> {
+                  onChange={(event) => {
                     let arr = employee?.listRelationships;
                     arr[index].name = event.target.value;
-                    setEmployee({...employee, listRelationships: arr})
-                  }}
-                  
-                  variant="standard"
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                />
-              </td>
-              <td>
-                <TextField
-                  value={item?.relationship}
-                  className="dotted font-14"
-                  fullWidth
-                  onChange={(event)=> {
-                    let arr = employee?.listRelationships;
-                    arr[index].relationship = event.target.value;
-                    setEmployee({...employee, listRelationships: arr})
+                    setEmployee({ ...employee, listRelationships: arr });
                   }}
                   variant="standard"
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
+                  // InputProps={{
+                  //   disableUnderline: true,
+                  // }}
                 />
               </td>
-              <td>
-                <TextField
-                  value={item?.gender}
-                  className="dotted font-14"
-                  fullWidth
-                  onChange={(event)=> {
-                    let arr = employee?.listRelationships;
-                    arr[index].gender = event.target.value;
-                    setEmployee({...employee, listRelationships: arr})
-                  }}
-                  variant="standard"
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                />
-              </td>
-              <td>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                inputFormat="DD/MM/YYYY"
-                value={item?.date || null}
-                onChange={(value)=> {
+              <td style={{width: "10%"}}>
+              <Autocomplete
+              freeSolo
+              fullWidth
+              value={item?.relationship}
+              onChange={(event, newValue) =>{
                   let arr = employee?.listRelationships;
-                  if(value) {
-                    arr[index].date = new Date(value);
-                    setEmployee({...employee, listRelationships: arr})
-                  }
-                }}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    type="date"
-                    fullWidth
-                    className="dotted font-14"
-                    format="DD/MM/YYYY"
-                    variant="standard"
-                    InputProps={{
-                      disableUnderline: true,
-                    }}
-                  />
-                )}
-              />
-            </LocalizationProvider>
-              </td>
-              <td>
+                  arr[index].relationship = newValue;
+                  setEmployee({ ...employee, listRelationships: arr });
+              }}
+              options={Related}
+              getOptionLabel={(option) => option.related}
+              renderInput={(params) => (
                 <TextField
-                  value={item?.address}
-                  className="dotted font-14"
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
                   fullWidth
-                  onChange={(event)=> {
-                    let arr = employee?.listRelationships;
-                    arr[index].address = event.target.value;
-                    setEmployee({...employee, listRelationships: arr})
-                  }}
                   variant="standard"
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
                 />
+              )}
+            />
+              </td>
+              <td style={{width: "10%"}}>
+              <Autocomplete
+              freeSolo
+              fullWidth
+              value={item?.gender}
+              onChange={(event, newValue) =>{
+                  let arr = employee?.listRelationships;
+                  arr[index].gender = newValue;
+                  setEmployee({ ...employee, listRelationships: arr });
+              }}
+              options={Gender}
+              getOptionLabel={(option) => option.gender}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
+            />
+              </td>
+              <td style={{width: "15%"}}>
+                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  <DatePicker
+                    inputFormat="DD/MM/YYYY"
+                    value={item?.date || null}
+                    onChange={(value) => {
+                      let arr = employee?.listRelationships;
+                      if (value) {
+                        arr[index].date = new Date(value);
+                        setEmployee({ ...employee, listRelationships: arr });
+                      }
+                    }}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        type="date"
+                        fullWidth
+                        className="dotted font-15"
+                        format="DD/MM/YYYY"
+                        variant="standard"
+                        // InputProps={{
+                        //   disableUnderline: true,
+                        // }}
+                      />
+                    )}
+                  />
+                </LocalizationProvider>
+              </td>
+              <td style={{width: "15%"}}>
+              <Autocomplete
+              freeSolo
+              fullWidth
+              value={employee?.issuedBy}
+              onChange={(event, newValue) =>{
+                  let arr = employee?.listRelationships;
+                  arr[index].address = newValue;
+                  setEmployee({ ...employee, listRelationships: arr });
+              }}
+              options={Provinces}
+              getOptionLabel={(option) => option.name}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
+            />
               </td>
             </tr>
           ))}

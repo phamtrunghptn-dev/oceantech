@@ -15,7 +15,12 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import EmployeeCV from "./EmployeeCV";
 import EmployeeIndividualHistory from "./EmployeeIndividualHistory";
 import EmployeeDiploma from "./EmployeeDiploma";
+import ConfirmationDialog from "app/components/ConfirmationDialog";
+import { toast } from 'react-toastify';
 import "./Dialog.scss";
+import {editEmployee, addEmployee} from "../EmployeeManagerService/EmployeeManageService";
+import { v4 as uuidv4 } from 'uuid'
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -47,27 +52,55 @@ function a11yProps(index) {
 }
 
 export default function DialogProfile(props) {
-  const { open, handleClose, employee } = props;
-
+  const { open, handleClose, handleCloseDialog, item, setItem } = props;
+console.log(item);
   const [value, setValue] = React.useState(0);
-  const [employeeProfile, setEmployeeProfile] = React.useState({});
-
-  console.log(employee)
-
-  useEffect(() => {
-    setEmployeeProfile(employee);
-  }, []);
+  const [shouldOpenDialogBrowser, setshouldOpenDialogBrowser] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  useEffect(()=>{
+    if(item.id){
+      if(item.status === "Chờ nộp hồ sơ"){
+        editEmployee(item)
+        .then(res=> {
+          toast.success("Sửa hồ sơ ở trạng thái chờ duyệt")
+          handleClose()
+        })
+      } else if(item.status === "Chờ duyệt"){
+        editEmployee(item)
+        .then(res=> {
+          toast.success("Gửi lãnh đạo thành công")
+          handleClose()
+        })
+      }
+    } else{
+      if(item.status === "Chờ nộp hồ sơ"){
+        setItem({...item, id: uuidv4()})
+        addEmployee(item)
+        .then(res=> {
+          toast.success("Lưu hồ sơ ở trạng thái chờ duyệt")
+          handleClose()
+        })
+      } else if(item.status === "Chờ duyệt"){
+        setItem({...item, id: uuidv4()})
+        addEmployee(item)
+        .then(res=> {
+          toast.success("Gửi lãnh đạo thành công")
+          handleClose()
+        })
+      }
+    }
+   
+  },[item])
   return (
     <>
       <Dialog open={open} maxWidth="lg" fullWidth>
         <DialogTitle>
           <span style={{ fontSize: "30px" }}>Hồ sơ ứng viên</span>
-          <Box className="icon-close" onClick={handleClose}>
+          <Box className="icon-close" onClick={handleCloseDialog}>
             <IconButton>
               <CloseIcon />
             </IconButton>
@@ -87,8 +120,8 @@ export default function DialogProfile(props) {
               value={value}
               onChange={handleChange}
               aria-label="Vertical tabs example"
-              textColor="secondary"
-              indicatorColor="secondary"
+              textColor="primary"
+              indicatorColor="primary"
               sx={{ borderRight: 1, borderColor: "divider" }}
             >
               <Tab label="Hồ sơ ứng viên" {...a11yProps(0)} />
@@ -96,22 +129,22 @@ export default function DialogProfile(props) {
               <Tab label="Bằng cấp" {...a11yProps(2)} />
             </Tabs>
 
-            <TabPanel value={value} index={0} style={{ width: "85%" }}>
+            <TabPanel value={value} index={0} style={{width: "87%"}}>
               <EmployeeCV
-                employee={employeeProfile}
-                setEmployee={setEmployeeProfile}
+                employee={item}
+                setEmployee={setItem}
               />
             </TabPanel>
-            <TabPanel value={value} index={1} style={{ width: "85%" }}>
+            <TabPanel value={value} index={1} style={{width: "87%"}}>
               <EmployeeIndividualHistory
-                employee={employeeProfile}
-                setEmployee={setEmployeeProfile}
+                employee={item}
+                setEmployee={setItem}
               />
             </TabPanel>
-            <TabPanel value={value} index={2} style={{ width: "85%" }}>
+            <TabPanel value={value} index={2} style={{width: "87%"}}>
               <EmployeeDiploma
-                employee={employeeProfile}
-                setEmployee={setEmployeeProfile}
+                employee={item}
+                setEmployee={setItem}
               />
             </TabPanel>
           </Box>
@@ -136,21 +169,27 @@ export default function DialogProfile(props) {
           </div>
 
           <div>
-            <Button onClick={handleClose} className="button-cancel mr-10">
+          <Button onClick={()=>setItem({...item, status: "Chờ nộp hồ sơ"})} className="button-confirm1 mr-10">
+              Lưu
+            </Button>
+            <Button onClick={()=>setshouldOpenDialogBrowser(true)} className="button-confirm1 mr-10">
+              Gửi lãnh đạo
+            </Button>
+            <Button onClick={handleCloseDialog}  className="button-cancel mr-10">
               Hủy
-            </Button>
-            <Button onClick={()=>setShouldOpenDialogAdditionalRequest(true)} className="button-confirm1 mr-10">
-              Yêu cầu bổ sung
-            </Button>
-            <Button onClick={handleClose} className="button-cancel1 mr-10">
-              Từ chối
-            </Button>
-            <Button onClick={handleClose} className="button-confirm mr-10">
-              Duyệt
             </Button>
           </div>
         </DialogActions>
       </Dialog>
+      {shouldOpenDialogBrowser &&(
+        <ConfirmationDialog 
+        title="Xác nhận"
+        text="Bạn có muốn trình hồ sơ nhân viên này lên lãnh đạo"
+        open={shouldOpenDialogBrowser}
+        onYesClick={()=>setItem({...item, status: "Chờ duyệt"})}
+        onConfirmDialogClose={()=>setshouldOpenDialogBrowser(false)}
+        />
+      )}
     </>
   );
 }

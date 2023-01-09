@@ -6,20 +6,11 @@ import { useEffect } from "react";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import Autocomplete from "@mui/material/Autocomplete";
-import { Provinces, Districts, Wards } from "app/data/Constant";
+import { Provinces, Districts, Wards, Gender, Related } from "app/data/Constant";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function EmployeeIndividualHistory(props) {
   const { employee, setEmployee } = props;
-  console.log(employee);
-  const [listDiploma, setListDiploma] = useState([]);
-  // useEffect(()=>{
-  //   setListDiploma(employee.listRelationships);
-  // },[])
-
-  // useEffect(()=>{
-  //   setEmployee(listDiploma);
-  // },[listDiploma])
   return (
     <Grid
       container
@@ -88,17 +79,27 @@ export default function EmployeeIndividualHistory(props) {
             <span className="font-15">Giới tính: </span>
           </Grid>
           <Grid item sm={5} xs={5}>
-            <TextField
-              value={employee?.gender}
-              className="dotted title-1 font-15"
+          <Autocomplete
+              freeSolo
               fullWidth
-              onChange={(event) =>
-                setEmployee({ ...employee, gender: event.target.value })
+              value={employee?.gender}
+              onChange={(event, newValue) =>
+                setEmployee((employee) => ({
+                  ...employee,
+                  gender: newValue,
+                }))
               }
-              variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              options={Gender}
+              getOptionLabel={(option) => option.gender}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  size="small"
+                  className="dotted font-15"
+                  fullWidth
+                  variant="standard"
+                />
+              )}
             />
           </Grid>
         </Grid>
@@ -547,36 +548,50 @@ export default function EmployeeIndividualHistory(props) {
                 />
               </td>
               <td style={{width: "10%"}}>
+              <Autocomplete
+              freeSolo
+              fullWidth
+              value={item?.relationship}
+              onChange={(event, newValue) =>{
+                  let arr = employee?.listRelationships;
+                  arr[index].relationship = newValue;
+                  setEmployee({ ...employee, listRelationships: arr });
+              }}
+              options={Related}
+              getOptionLabel={(option) => option.related}
+              renderInput={(params) => (
                 <TextField
-                  value={item?.relationship}
+                  {...params}
+                  size="small"
                   className="dotted font-15"
                   fullWidth
-                  onChange={(event) => {
-                    let arr = employee?.listRelationships;
-                    arr[index].relationship = event.target.value;
-                    setEmployee({ ...employee, listRelationships: arr });
-                  }}
                   variant="standard"
-                  // InputProps={{
-                  //   disableUnderline: true,
-                  // }}
                 />
+              )}
+            />
               </td>
               <td style={{width: "10%"}}>
+              <Autocomplete
+              freeSolo
+              fullWidth
+              value={item?.gender}
+              onChange={(event, newValue) =>{
+                  let arr = employee?.listRelationships;
+                  arr[index].gender = newValue;
+                  setEmployee({ ...employee, listRelationships: arr });
+              }}
+              options={Gender}
+              getOptionLabel={(option) => option.gender}
+              renderInput={(params) => (
                 <TextField
-                  value={item?.gender}
+                  {...params}
+                  size="small"
                   className="dotted font-15"
                   fullWidth
-                  onChange={(event) => {
-                    let arr = employee?.listRelationships;
-                    arr[index].gender = event.target.value;
-                    setEmployee({ ...employee, listRelationships: arr });
-                  }}
                   variant="standard"
-                  // InputProps={{
-                  //   disableUnderline: true,
-                  // }}
                 />
+              )}
+            />
               </td>
               <td style={{width: "15%"}}>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -628,20 +643,6 @@ export default function EmployeeIndividualHistory(props) {
                 />
               )}
             />
-                {/* <TextField
-                  value={item?.address}
-                  className="dotted font-15"
-                  fullWidth
-                  onChange={(event) => {
-                    let arr = employee?.listRelationships;
-                    arr[index].address = event.target.value;
-                    setEmployee({ ...employee, listRelationships: arr });
-                  }}
-                  variant="standard"
-                  // InputProps={{
-                  //   disableUnderline: true,
-                  // }}
-                /> */}
               </td>
             </tr>
           ))}

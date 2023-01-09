@@ -33,14 +33,14 @@ export default function EmployeeCV(props) {
         <Grid item container sm={6} xs={6}>
           <Grid item container sm={12} xs={12}>
             <Grid item sm={1} xs={1}>
-              {employee.gender === "Nam" ? (
+              {employee.gender.gender === "Nam" ? (
                 <MaleIcon className="icon" />
               ) : (
                 <FemaleIcon className="icon" />
               )}
             </Grid>
             <Grid item sm={9} xs={9}>
-              <span className="font-15">Giới tính: {employee.gender}</span>
+              <span className="font-15">Giới tính: {employee?.gender?.gender}</span>
             </Grid>
           </Grid>
           <Grid item container sm={12} xs={12}>
