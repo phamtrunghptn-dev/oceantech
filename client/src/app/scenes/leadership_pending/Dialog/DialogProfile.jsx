@@ -95,7 +95,7 @@ export default function DialogProfile(props) {
   },[employeeProfile])
   return (
     <>
-      <Dialog open={open} maxWidth="md" fullWidth>
+      <Dialog open={open} maxWidth="lg" fullWidth>
         <DialogTitle>
           <span style={{ fontSize: "30px" }}>Hồ sơ ứng viên</span>
           <Box className="icon-close" onClick={handleClose}>
@@ -112,34 +112,34 @@ export default function DialogProfile(props) {
               height: "100%",
             }}
           >
-            {/* <Tabs
+            <Tabs
               orientation="vertical"
               variant="scrollable"
               value={value}
               onChange={handleChange}
               aria-label="Vertical tabs example"
-              textColor="secondary"
-              indicatorColor="secondary"
+              textColor="primary"
+              indicatorColor="primary"
               sx={{ borderRight: 1, borderColor: "divider" }}
             >
               <Tab label="Hồ sơ ứng viên" {...a11yProps(0)} />
               <Tab label="Sơ yếu lý lịch" {...a11yProps(1)} />
               <Tab label="Bằng cấp" {...a11yProps(2)} />
-            </Tabs> */}
+            </Tabs>
 
-            <TabPanel value={value} index={0}>
+            <TabPanel value={value} index={0} style={{width: "87%"}}>
               <EmployeeCV
                 employee={employeeProfile}
                 setEmployee={setEmployeeProfile}
               />
             </TabPanel>
-            <TabPanel value={value} index={1}>
+            <TabPanel value={value} index={1} style={{width: "87%"}}>
               <EmployeeIndividualHistory
                 employee={employeeProfile}
                 setEmployee={setEmployeeProfile}
               />
             </TabPanel>
-            <TabPanel value={value} index={2} style={{width: "100%"}}>
+            <TabPanel value={value} index={2} style={{width: "87%"}}>
               <EmployeeDiploma
                 employee={employeeProfile}
                 setEmployee={setEmployeeProfile}
@@ -167,8 +167,8 @@ export default function DialogProfile(props) {
           </div>
 
           <div>
-            <Button onClick={handleClose}  className="button-cancel mr-10">
-              Hủy
+          <Button onClick={()=>setshouldOpenDialogBrowser(true)} className="button-confirm1 mr-10">
+              Duyệt
             </Button>
             <Button onClick={()=>setShouldOpenDialogAdditionalRequest(true)} className="button-confirm1 mr-10">
               Yêu cầu bổ sung
@@ -176,8 +176,8 @@ export default function DialogProfile(props) {
             <Button onClick={()=>setShouldOpenDialogRefuse(true)} variant="outlined" className="button-cancel1 mr-10">
               Từ chối
             </Button>
-            <Button onClick={()=>setshouldOpenDialogBrowser(true)} className="button-confirm mr-10">
-              Duyệt
+            <Button onClick={handleClose}  className="button-cancel mr-10">
+              Hủy
             </Button>
           </div>
         </DialogActions>
