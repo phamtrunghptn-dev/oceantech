@@ -42,28 +42,30 @@ const Sidebar = () => {
     <Box
       sx={{
         '& .pro-sidebar-inner': {
-          background: `${colors.primary[450]} !important`,
+
+          background: `#2d353c`,
         },
         '& .pro-icon-wrapper': {
-          backgroundColor: 'transparent !important',
+          backgroundColor: '#2d353c !important',
         },
         '& .pro-inner-item': {
+          color: "rgba(251,251,251,.5)",
           padding: '5px 35px 5px 20px !important',
         },
         '& .pro-inner-item:hover': {
-          color: '#868dfb !important',
+          color: '#fbfbfb !important',
         },
-        '& .pro-menu-item.active': {
-          color: '#6870fa !important',
+        '& .pro-menu-item.active > .pro-inner-item': {
+          color: '#fbfbfb !important',
         },
         '& .pro-inner-list-item': {
-          background: `${colors.primary[450]} !important`,
+          background: `#2d353c !important`,
         },
         '& .pro-sub-menu': {
-          color: `${colors.grey[100]} !important`,
+          color: `#fbfbfb !important`,
         },
         '& .pro-menu-item > .pro-inner-item:focus': {
-          color: `${colors.grey[100]} !important`,
+          color: `#fbfbfb !important`,
         },
       }}
     >
@@ -85,10 +87,10 @@ const Sidebar = () => {
                 alignItems="center"
                 ml="15px"
               >
-                <Typography variant="h3" color={colors.grey[100]}>
+                <Typography variant="h3" style={{color: "#fbfbfb"}}>
                   OceanTech
                 </Typography>
-                <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+                <IconButton style={{color: "#fbfbfb"}} onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
                 </IconButton>
               </Box>

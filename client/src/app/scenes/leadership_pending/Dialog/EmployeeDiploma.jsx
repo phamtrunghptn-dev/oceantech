@@ -81,31 +81,49 @@ export default function EmployeeDiploma(props) {
 
   return (
     <Box
-      height="70vh"
+      height="65vh"
       sx={{
-        "& .MuiDataGrid-root": {
-          border: "none",
+        '& .MuiDataGrid-root': {
+          border: 'none',
         },
-        "& .MuiDataGrid-cell": {
-          borderBottom: "none",
+        '& .MuiDataGrid-cell': {
+          borderBottom: 'none',
         },
-        "& .name-column--cell": {
+        '& .name-column--cell': {
           color: colors.greenAccent[300],
         },
-        "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: colors.blueAccent[700],
-          borderBottom: "none",
+        '& .MuiDataGrid-columnHeaders': {
+          color: "#fbfbfb",
+          backgroundColor: "#2d353c",
+          borderBottom: 'none',
         },
-        "& .MuiDataGrid-virtualScroller": {
+        '& .MuiDataGrid-virtualScroller': {
           backgroundColor: colors.primary[400],
         },
-        "& .MuiDataGrid-footerContainer": {
-          borderTop: "none",
-          backgroundColor: colors.blueAccent[700],
+        '& .MuiDataGrid-footerContainer': {
+          borderTop: 'none',
+          color: "#fbfbfb",
+          backgroundColor: "#2d353c",
         },
-        "& .MuiCheckbox-root": {
+        '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
+          color: "#fbfbfb",
+        },
+        '& .MuiDataGrid-footerContainer .MuiSvgIcon-root': {
+          color: "#fbfbfb",
+        },
+        '& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root': {
+          color: "rgba(251,251,251,.5)",
+        },
+        '& .MuiCheckbox-root': {
           color: `${colors.greenAccent[200]} !important`,
         },
+        "& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus": {
+          outline: "none !important",
+        },
+        "& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus":
+          {
+            outline: "none !important",
+          },
       }}
     >
       <DataGrid
