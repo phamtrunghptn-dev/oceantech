@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef  } from "react";
 import { Button, Typography } from "@material-ui/core";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -16,11 +16,14 @@ import EmployeeCV from "./EmployeeCV";
 import EmployeeIndividualHistory from "./EmployeeIndividualHistory";
 import EmployeeDiploma from "./EmployeeDiploma";
 import ConfirmationDialog from "app/components/ConfirmationDialog";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import "./Dialog.scss";
-import {editEmployee, addEmployee} from "../EmployeeManagerService/EmployeeManageService";
-import { v4 as uuidv4 } from 'uuid'
-
+import {
+  editEmployee,
+  addEmployee,
+} from "../EmployeeManagerService/EmployeeManageService";
+import { v4 as uuidv4 } from "uuid";
+import DialogRequest from "./DialogRequest";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -52,49 +55,63 @@ function a11yProps(index) {
 }
 
 export default function DialogProfile(props) {
-  const { open, handleClose, handleCloseDialog, item, setItem } = props;
-console.log(item);
-  const [value, setValue] = React.useState(0);
-  const [shouldOpenDialogBrowser, setshouldOpenDialogBrowser] = useState(false);
-
+  const { open, handleClose, handleCloseDialog, item, setItem, readOnly } =
+    props;
+    const [value, setValue] = React.useState(0);
+    const [shouldOpenDialogBrowser, setshouldOpenDialogBrowser] = useState(false);
+    const firstRender = useRef(false);
+  console.log(readOnly)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  useEffect(()=>{
-    if(item.id){
-      if(item.status === "Chờ nộp hồ sơ"){
-        editEmployee(item)
-        .then(res=> {
-          toast.success("Sửa hồ sơ ở trạng thái chờ duyệt")
-          handleClose()
-        })
-      } else if(item.status === "Chờ duyệt"){
-        editEmployee(item)
-        .then(res=> {
-          toast.success("Gửi lãnh đạo thành công")
-          handleClose()
-        })
+  useEffect(() => {
+    if(firstRender.current) {
+      if (item?.id) {
+        if (item?.status === "Chờ duyệt") {
+          if(item.request){
+            editEmployee(item).then((res) => {
+              toast.success("Gửi lãnh đạo thành công");
+              handleClose();
+            });
+          } else {
+            toast.warning("Vui lòng nhập đủ trường");
+          }
+        } else if (item?.status === "Chờ nộp hồ sơ") {
+          editEmployee(item).then((res) => {
+            toast.success("Hồ sơ đang ở trạng thái chờ nộp hồ sơ");
+            handleClose();
+          });
+        } else if (item.status === "Chờ duyệt") {
+          editEmployee(item).then((res) => {
+            toast.success("Gửi lãnh đạo thành công");
+            handleClose();
+          });
+        }
+      } else {
+        if (item.status === "Chờ nộp hồ sơ") {
+          setItem({ ...item, id: uuidv4() });
+          addEmployee(item).then((res) => {
+            toast.success("Lưu hồ sơ ở trạng thái chờ duyệt");
+            handleClose();
+          });
+        } else if (item.status === "Chờ duyệt") {
+          setItem({ ...item, id: uuidv4() });
+          if(item.request){
+            editEmployee(item).then((res) => {
+              toast.success("Gửi lãnh đạo thành công");
+              handleClose();
+            });
+          } else {
+            toast.warning("Vui lòng nhập đủ trường");
+          }
+        }
       }
-    } else{
-      if(item.status === "Chờ nộp hồ sơ"){
-        setItem({...item, id: uuidv4()})
-        addEmployee(item)
-        .then(res=> {
-          toast.success("Lưu hồ sơ ở trạng thái chờ duyệt")
-          handleClose()
-        })
-      } else if(item.status === "Chờ duyệt"){
-        setItem({...item, id: uuidv4()})
-        addEmployee(item)
-        .then(res=> {
-          toast.success("Gửi lãnh đạo thành công")
-          handleClose()
-        })
-      }
+    } else {
+      firstRender.current = true
     }
    
-  },[item])
+  }, [item]);
   return (
     <>
       <Dialog open={open} maxWidth="lg" fullWidth>
@@ -129,22 +146,25 @@ console.log(item);
               <Tab label="Bằng cấp" {...a11yProps(2)} />
             </Tabs>
 
-            <TabPanel value={value} index={0} style={{width: "87%"}}>
+            <TabPanel value={value} index={0} style={{ width: "87%" }}>
               <EmployeeCV
                 employee={item}
                 setEmployee={setItem}
+                readOnly={readOnly}
               />
             </TabPanel>
-            <TabPanel value={value} index={1} style={{width: "87%"}}>
+            <TabPanel value={value} index={1} style={{ width: "87%" }}>
               <EmployeeIndividualHistory
                 employee={item}
                 setEmployee={setItem}
+                readOnly={readOnly}
               />
             </TabPanel>
-            <TabPanel value={value} index={2} style={{width: "87%"}}>
+            <TabPanel value={value} index={2} style={{ width: "87%" }}>
               <EmployeeDiploma
                 employee={item}
                 setEmployee={setItem}
+                readOnly={readOnly}
               />
             </TabPanel>
           </Box>
@@ -168,26 +188,42 @@ console.log(item);
             </IconButton>
           </div>
 
-          <div>
-          <Button onClick={()=>setItem({...item, status: "Chờ nộp hồ sơ"})} className="button-confirm1 mr-10">
-              Lưu
+          {readOnly ? (
+            <Button onClick={handleCloseDialog} className="button-cancel mr-10">
+              Đóng
             </Button>
-            <Button onClick={()=>setshouldOpenDialogBrowser(true)} className="button-confirm1 mr-10">
-              Gửi lãnh đạo
-            </Button>
-            <Button onClick={handleCloseDialog}  className="button-cancel mr-10">
-              Hủy
-            </Button>
-          </div>
+          ) : (
+            <div>
+              <Button
+                onClick={() => setItem({ ...item, status: "Chờ nộp hồ sơ" })}
+                className="button-confirm1 mr-10"
+              >
+                Lưu
+              </Button>
+              <Button
+                onClick={() => {setshouldOpenDialogBrowser(true)}}
+                className="button-confirm1 mr-10"
+              >
+                Gửi lãnh đạo
+              </Button>
+              <Button
+                onClick={handleCloseDialog}
+                className="button-cancel mr-10"
+              >
+                Hủy
+              </Button>
+            </div>
+          )}
         </DialogActions>
       </Dialog>
-      {shouldOpenDialogBrowser &&(
-        <ConfirmationDialog 
-        title="Xác nhận"
-        text="Bạn có muốn trình hồ sơ nhân viên này lên lãnh đạo"
-        open={shouldOpenDialogBrowser}
-        onYesClick={()=>setItem({...item, status: "Chờ duyệt"})}
-        onConfirmDialogClose={()=>setshouldOpenDialogBrowser(false)}
+      {shouldOpenDialogBrowser && (
+        <DialogRequest
+          open={shouldOpenDialogBrowser}
+          item={item?.userRequest}
+          onYesClick={(value) =>
+            setItem({ ...item, status: "Chờ duyệt", userRequest: value })
+          }
+          onConfirmDialogClose={() => setshouldOpenDialogBrowser(false)}
         />
       )}
     </>
