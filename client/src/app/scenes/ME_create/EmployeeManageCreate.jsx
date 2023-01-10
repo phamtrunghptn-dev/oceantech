@@ -20,6 +20,7 @@ import {
   getListDataEmployees,
   deleteEmployee,
 } from './EmployeeManagerService/EmployeeManageService'
+import DialogProfile from './Dialog/DialogProfile'
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -72,6 +73,8 @@ export default function EmployeeManageCreate() {
   const [listDataEmployees, setListDataEmployees] = useState([])
   const [shouldOpenConfirmDialog, setShouldOpenConfirmDialog] = useState(false)
   const [shouldOpenEditDialog, setShouldOpenEditDialog] = useState(false)
+  const [shouldOpenViewDialog, setShouldOpenViewDialog] = useState(false)
+  const [readOnly, setReadOnly] = useState(false)
   useEffect(() => {
     updateDataEmployee()
   }, [])
@@ -83,7 +86,8 @@ export default function EmployeeManageCreate() {
             item.status === 'Lưu mới' ||
             item.status === 'Từ chối' ||
             item.status === 'Yêu cầu bổ sung' ||
-            item.status === ' Chờ xử lý',
+            item.status === 'Chờ nộp hồ sơ' ||
+            item.status === 'Chờ xử lý' 
         ),
       )
     })
@@ -111,7 +115,11 @@ export default function EmployeeManageCreate() {
         <>
           <IconButton
             color="success"
-            onClick={() => {}}
+            onClick={() => {
+              setEmployee(row)
+              setShouldOpenViewDialog(true)
+              setReadOnly(true)
+            }}
             disabled={
               row.status === 'Yêu cầu bổ sung' ||
               row.status === 'Kết thúc' ||
@@ -127,7 +135,6 @@ export default function EmployeeManageCreate() {
               handleEditEmployee(row)
             }}
             disabled={
-              row.status === 'Chờ nộp hồ sơ' ||
               row.status === 'Kết thúc' ||
               row.status === 'Chờ duyệt' ||
               row.status === 'Đã duyệt' ||
@@ -197,7 +204,6 @@ export default function EmployeeManageCreate() {
       },
     },
   ]
-  console.log('111', employee)
   const handleDelete = () => {
     toast.success('Xóa thành công')
     handleClose()
@@ -231,6 +237,7 @@ export default function EmployeeManageCreate() {
       listDiplomas: [],
       listRelationships: [],
     })
+    setReadOnly(false)
   }
 
   return (
@@ -326,6 +333,15 @@ export default function EmployeeManageCreate() {
           listDataEmployees={listDataEmployees}
           setListDataEmployees={setListDataEmployees}
         />
+      )}
+
+      {shouldOpenViewDialog && (
+        <DialogProfile 
+        open={shouldOpenViewDialog}
+        handleCloseDialog={()=>setShouldOpenViewDialog(false)}
+        item={employee}
+        readOnly={readOnly}
+          />
       )}
 
       {shouldOpenConfirmDialog && (

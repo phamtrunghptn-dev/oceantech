@@ -46,7 +46,7 @@ export default function DialogAdditionalRequest(props) {
             </Grid>
     </DialogContent>
     <DialogActions>
-      <Button className="button-confirm" onClick={handleRequest}>Xác nhận</Button>
+      <Button className="button-confirm1" onClick={handleRequest}>Xác nhận</Button>
       <Button className="button-cancel" onClick={handleCloseDialog}>Cancel</Button>
     </DialogActions>
   </Dialog>

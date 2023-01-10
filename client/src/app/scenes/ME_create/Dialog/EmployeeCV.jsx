@@ -14,7 +14,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function EmployeeCV(props) {
-  const { employee, setEmployee } = props;
+  const { employee, setEmployee, readOnly } = props;
   return (
     <Grid container spacing={2}>
       <Grid container style={{ height: "20px" }}>
@@ -110,6 +110,7 @@ export default function EmployeeCV(props) {
             }
             variant="standard"
             InputProps={{
+              readOnly:readOnly,
               disableUnderline: true,
             }}
           />
@@ -140,6 +141,7 @@ export default function EmployeeCV(props) {
             }
             variant="standard"
             InputProps={{
+              readOnly:readOnly,
               disableUnderline: true,
             }}
           />
@@ -182,6 +184,9 @@ export default function EmployeeCV(props) {
                     format="DD/MM/YYYY"
                     className="color-1"
                     variant="standard"
+                    InputProps={{
+                      readOnly:readOnly,
+                    }}
                   />
                 )}
               />
@@ -218,6 +223,9 @@ export default function EmployeeCV(props) {
                     format="DD/MM/YYYY"
                     className="color-1"
                     variant="standard"
+                    InputProps={{
+                      readOnly:readOnly,
+                    }}
                   />
                 )}
               />
@@ -247,6 +255,7 @@ export default function EmployeeCV(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
+              readOnly: readOnly
             }}
           />
         </Grid>
@@ -278,6 +287,7 @@ export default function EmployeeCV(props) {
               variant="standard"
               InputProps={{
                 disableUnderline: true,
+                readOnly: readOnly
               }}
             />
           </Grid>
@@ -320,6 +330,9 @@ export default function EmployeeCV(props) {
                     size="small"
                     className="color-1"
                     variant="standard"
+                    InputProps={{
+                      readOnly:readOnly,
+                    }}
                   />
                 )}
               />
@@ -356,6 +369,9 @@ export default function EmployeeCV(props) {
                     size="small"
                     className="color-1"
                     variant="standard"
+                    InputProps={{
+                      readOnly:readOnly,
+                    }}
                   />
                 )}
               />
@@ -386,6 +402,7 @@ export default function EmployeeCV(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
+              readOnly:readOnly
             }}
           />
         </Grid>
@@ -413,6 +430,7 @@ export default function EmployeeCV(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
+              readOnl:readOnly
             }}
           />
         </Grid>
@@ -441,6 +459,7 @@ export default function EmployeeCV(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
+              readOnly:readOnly
             }}
           />
         </Grid>
@@ -471,6 +490,7 @@ export default function EmployeeCV(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
+              readOnly:readOnly
             }}
           />
         </Grid>
@@ -493,6 +513,7 @@ export default function EmployeeCV(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
+              readOnly: readOnly
             }}
           />
         </Grid>

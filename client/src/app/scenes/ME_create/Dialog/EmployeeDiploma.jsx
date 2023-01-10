@@ -5,6 +5,7 @@ import { tokens } from "../../../theme";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DialogDiplomaForm from "./DialogDiplomaForm";
+import moment from "moment"
 import DialogEditDiploma from "./DialogEditDiploma";
 
 export default function EmployeeDiploma(props) {

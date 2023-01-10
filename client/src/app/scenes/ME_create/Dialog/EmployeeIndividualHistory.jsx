@@ -10,7 +10,7 @@ import { Provinces, Districts, Wards, Gender, Related } from "app/data/Constant"
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export default function EmployeeIndividualHistory(props) {
-  const { employee, setEmployee } = props;
+  const { employee, setEmployee, readOnly } = props;
   return (
     <Grid
       container
@@ -63,9 +63,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, name: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
           </Grid>
         </Grid>
@@ -98,6 +98,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -122,9 +125,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, name: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
           </Grid>
         </Grid>
@@ -156,6 +159,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   format="DD/MM/YYYY"
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -187,6 +193,9 @@ export default function EmployeeIndividualHistory(props) {
                 className="dotted font-15"
                 fullWidth
                 variant="standard"
+                InputProps={{
+                  readOnly:readOnly,
+                }}
               />
             )}
           />
@@ -211,9 +220,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, addressDetail: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
           </Grid>
           <span style={{ padding: 10 }}>-</span>
@@ -237,6 +246,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -262,6 +274,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -287,6 +302,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -316,9 +334,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, phone: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
           </Grid>
         </Grid>
@@ -341,9 +359,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, email: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
           </Grid>
         </Grid>
@@ -372,9 +390,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, ethnic: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
           </Grid>
         </Grid>
@@ -396,9 +414,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, religion: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
           </Grid>
         </Grid>
@@ -420,9 +438,9 @@ export default function EmployeeIndividualHistory(props) {
                 setEmployee({ ...employee, identification: event.target.value })
               }
               variant="standard"
-              // InputProps={{
-              //   disableUnderline: true,
-              // }}
+              InputProps={{
+                readOnly:readOnly,
+              }}
             />
         </Grid>
         <Grid
@@ -458,9 +476,9 @@ export default function EmployeeIndividualHistory(props) {
                     className="dotted font-15"
                     format="DD/MM/YYYY"
                     variant="standard"
-                    // InputProps={{
-                    //   disableUnderline: true,
-                    // }}
+                    InputProps={{
+                      readOnly:readOnly,
+                    }}
                   />
                 )}
               />
@@ -497,6 +515,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -542,9 +563,9 @@ export default function EmployeeIndividualHistory(props) {
                     setEmployee({ ...employee, listRelationships: arr });
                   }}
                   variant="standard"
-                  // InputProps={{
-                  //   disableUnderline: true,
-                  // }}
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               </td>
               <td style={{width: "10%"}}>
@@ -566,6 +587,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -589,6 +613,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
@@ -613,9 +640,9 @@ export default function EmployeeIndividualHistory(props) {
                         className="dotted font-15"
                         format="DD/MM/YYYY"
                         variant="standard"
-                        // InputProps={{
-                        //   disableUnderline: true,
-                        // }}
+                        InputProps={{
+                          readOnly:readOnly,
+                        }}
                       />
                     )}
                   />
@@ -640,6 +667,9 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
+                  InputProps={{
+                    readOnly:readOnly,
+                  }}
                 />
               )}
             />
