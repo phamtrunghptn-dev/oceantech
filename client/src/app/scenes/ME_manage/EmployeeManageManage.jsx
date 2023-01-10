@@ -1,56 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import Header from '../../components/Header'
 import { Box, useTheme, IconButton, Button } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
 import { tokens } from '../../theme'
 import { mockDataManage } from '../../data/mockData'
 import moment from 'moment'
 import Tooltip from '@mui/material/Tooltip'
-import Breadcrumbs from '@mui/material/Breadcrumbs'
-import { emphasize, styled } from '@mui/material/styles'
-import Chip from '@mui/material/Chip'
-import HomeIcon from '@mui/icons-material/Home'
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
+import MovingIcon from '@mui/icons-material/Moving'
 
-// import DialogProfile from './Dialog/DialogProfile'
-
-const StyledBreadcrumb = styled(Chip)(({ theme }) => {
-  const backgroundColor =
-    theme.palette.mode === 'light'
-      ? theme.palette.grey[300]
-      : theme.palette.grey[800]
-  return {
-    backgroundColor,
-    height: theme.spacing(3),
-    color: theme.palette.text.primary,
-    fontWeight: theme.typography.fontWeightRegular,
-    '&:hover, &:focus': {
-      backgroundColor: emphasize(backgroundColor, 0.06),
-    },
-    '&:active': {
-      boxShadow: theme.shadows[1],
-      backgroundColor: emphasize(backgroundColor, 0.12),
-    },
-  }
-})
-
-const EmployeeMainManager = () => {
+const EmployeeManageManage = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false)
-  const [listEmployee, setlistEmployee] = useState([])
   const [employee, setEmployee] = useState({})
-  const [pageSize, setPageSize] = React.useState(5)
-
-  useEffect(() => {
-    updatePageData()
-  }, [])
-
-  const updatePageData = () => {
-    // getListDataEmployees()
-    // .then(res=> {
-    //   setlistEmployee(res.data.filter((item)=> item.status === "Đã duyệt"))
-    // })
-  }
 
   const columns = [
     {
@@ -65,7 +27,7 @@ const EmployeeMainManager = () => {
               setEmployee(row)
             }}
           >
-            <RemoveRedEyeIcon />
+            <MovingIcon />
           </IconButton>
         </Tooltip>
       ),
@@ -73,13 +35,13 @@ const EmployeeMainManager = () => {
     {
       field: 'code',
       headerName: 'Mã nhân viên',
-      renderCell: ({ row }) => row?.code,
+      renderCell: ({ row }) => row?.employeeDetail.code,
     },
     {
       field: 'name',
       headerName: 'Họ và Tên',
       flex: 1,
-      renderCell: ({ row }) => row?.name,
+      renderCell: ({ row }) => row?.employeeDetail.name,
     },
     {
       field: 'birthDay',
@@ -87,19 +49,20 @@ const EmployeeMainManager = () => {
       type: 'date',
       headerAlign: 'left',
       align: 'left',
-      renderCell: ({ row }) => moment(row?.birthDay).format('DD/MM/YYYY'),
+      renderCell: ({ row }) =>
+        moment(row?.employeeDetail.birthDay).format('DD/MM/YYYY'),
     },
     {
       field: 'phone',
       headerName: 'Phone Number',
       flex: 1,
-      renderCell: ({ row }) => row?.phone,
+      renderCell: ({ row }) => row?.employeeDetail.phone,
     },
     {
       field: 'email',
       headerName: 'Email',
       flex: 1,
-      renderCell: ({ row }) => row?.email,
+      renderCell: ({ row }) => row?.employeeDetail.email,
     },
   ]
 
@@ -110,20 +73,10 @@ const EmployeeMainManager = () => {
 
   return (
     <Box m="20px">
-      <div role="presentation">
-        <Breadcrumbs aria-label="breadcrumb" marginBottom="20px">
-          <StyledBreadcrumb
-            label="Home"
-            icon={<HomeIcon fontSize="small" />}
-          ></StyledBreadcrumb>
-          <StyledBreadcrumb component="a" href="/" label="Quản lý" />
-          <StyledBreadcrumb
-            component="a"
-            href="/manage-employee-create"
-            label="Quản lý nhân viên"
-          />
-        </Breadcrumbs>
-      </div>
+      <Header
+        title="Quản lý nhân viên"
+        subtitle="Quản lý, cập nhật diễn biến nhân viên"
+      />
       <Box
         m="40px 0 0 0"
         height="75vh"
@@ -153,23 +106,17 @@ const EmployeeMainManager = () => {
           },
         }}
       >
-        <DataGrid
-          rows={listEmployee}
-          columns={columns}
-          pageSize={pageSize}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          rowsPerPageOptions={[5, 10, 20]}
-        />
+        <DataGrid rows={mockDataManage} columns={columns} />
       </Box>
-      {/* {shouldOpenDialog && (
-        <DialogProfile
+      {shouldOpenDialog && (
+        <DialogManage
           open={shouldOpenDialog}
           handleClose={handleClose}
           employee={employee}
         />
-      )} */}
+      )}
     </Box>
   )
 }
 
-export default EmployeeMainManager
+export default EmployeeManageManage
