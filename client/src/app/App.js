@@ -9,6 +9,7 @@ import LeadershipPending from './scenes/leadership_pending/LeadershipPending';
 import LeadershipApproved from "./scenes/leadership_approved/LeadershipApproved";
 import EmployeeManageCreate from "./scenes/ME_create/EmployeeManageCreate";
 import EmployeeMainManager from "./scenes/ME_manage/EmployeeMainManager";
+import EmployeeManageRemove from "./scenes/ME_remove/EmployeeManageRemove";
 
 function App() {
   const [theme, colorMode] = useMode();
@@ -28,6 +29,7 @@ function App() {
               <Route path="/leadership-approved" element={<LeadershipApproved />} />
               <Route path="/manage-employee-create" element={<EmployeeManageCreate />} />
               <Route path="/manage_employee_manage" element={<EmployeeMainManager />} />
+              <Route path="/manage_employee_remove" element={<EmployeeManageRemove />} />
             </Routes>
           </main>
         </div>
