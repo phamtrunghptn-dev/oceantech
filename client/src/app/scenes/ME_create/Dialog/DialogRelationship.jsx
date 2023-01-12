@@ -24,6 +24,7 @@ import Card from '@mui/material/Card'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { v4 as uuidv4 } from 'uuid'
+import { getRowIdFromRowModel } from '@mui/x-data-grid/hooks/features/rows/gridRowsUtils'
 
 const DialogRelationship = (props) => {
   const theme = useTheme()
@@ -85,7 +86,7 @@ const DialogRelationship = (props) => {
         .typeError('Sai định dạng ngày!')
         .max(new Date(), 'Ngày sinh được lớn hơn ngày hiện tại!')
         .required('Vui lòng nhập ngày sinh!'),
-      gender: Yup.string().required('Vui lòng nhập giới tính!'),
+      gender: Yup.object().required('Vui lòng nhập giới tính!'),
       relationship: Yup.object().required('Vui lòng nhập mối quan hệ!'),
       address: Yup.string().required('Vui lòng nhập địa chỉ cụ thể!'),
     }),
@@ -163,6 +164,7 @@ const DialogRelationship = (props) => {
       field: 'gender',
       headerName: 'Giới tính',
       flex: 1,
+      renderCell: ({ row }) => row?.gender?.gender,
     },
     {
       field: 'relationship',
@@ -256,7 +258,7 @@ const DialogRelationship = (props) => {
                 helperText={formikRelationship.errors.gender}
               >
                 {Gender.map((option) => (
-                  <MenuItem key={option.id} value={option.gender}>
+                  <MenuItem key={option.id} value={option}>
                     {option.gender}
                   </MenuItem>
                 ))}

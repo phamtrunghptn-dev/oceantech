@@ -176,6 +176,7 @@ export default function EmployeeCV(props) {
                     }));
                   }
                 }}
+                readOnly={readOnly}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -184,9 +185,6 @@ export default function EmployeeCV(props) {
                     format="DD/MM/YYYY"
                     className="color-1"
                     variant="standard"
-                    InputProps={{
-                      readOnly:readOnly,
-                    }}
                   />
                 )}
               />
@@ -215,6 +213,7 @@ export default function EmployeeCV(props) {
                     }));
                   }
                 }}
+                readOnly={readOnly}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -223,9 +222,6 @@ export default function EmployeeCV(props) {
                     format="DD/MM/YYYY"
                     className="color-1"
                     variant="standard"
-                    InputProps={{
-                      readOnly:readOnly,
-                    }}
                   />
                 )}
               />
@@ -322,6 +318,7 @@ export default function EmployeeCV(props) {
                     }));
                   }
                 }}
+                readOnly={readOnly}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -330,9 +327,6 @@ export default function EmployeeCV(props) {
                     size="small"
                     className="color-1"
                     variant="standard"
-                    InputProps={{
-                      readOnly:readOnly,
-                    }}
                   />
                 )}
               />
@@ -361,6 +355,7 @@ export default function EmployeeCV(props) {
                     }));
                   }
                 }}
+                readOnly={readOnly}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -369,9 +364,6 @@ export default function EmployeeCV(props) {
                     size="small"
                     className="color-1"
                     variant="standard"
-                    InputProps={{
-                      readOnly:readOnly,
-                    }}
                   />
                 )}
               />
@@ -430,7 +422,7 @@ export default function EmployeeCV(props) {
             variant="standard"
             InputProps={{
               disableUnderline: true,
-              readOnl:readOnly
+              readOnly:readOnly
             }}
           />
         </Grid>

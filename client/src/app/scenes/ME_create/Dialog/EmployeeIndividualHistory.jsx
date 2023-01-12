@@ -89,6 +89,7 @@ export default function EmployeeIndividualHistory(props) {
                   gender: newValue,
                 }))
               }
+              readOnly={readOnly}
               options={Gender}
               getOptionLabel={(option) => option.gender}
               renderInput={(params) => (
@@ -98,9 +99,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -151,6 +149,7 @@ export default function EmployeeIndividualHistory(props) {
                   setEmployee({ ...employee, birthDay: new Date(value) });
                 }
               }}
+              readOnly={readOnly}
               renderInput={(params) => (
                 <TextField
                   {...params}
@@ -159,9 +158,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   format="DD/MM/YYYY"
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -184,6 +180,7 @@ export default function EmployeeIndividualHistory(props) {
                 },
               }))
             }
+            readOnly={readOnly}
             options={Provinces}
             getOptionLabel={(option) => option.name}
             renderInput={(params) => (
@@ -193,9 +190,6 @@ export default function EmployeeIndividualHistory(props) {
                 className="dotted font-15"
                 fullWidth
                 variant="standard"
-                InputProps={{
-                  readOnly:readOnly,
-                }}
               />
             )}
           />
@@ -238,6 +232,7 @@ export default function EmployeeIndividualHistory(props) {
                 }))
               }
               options={Wards}
+              readOnly={readOnly}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => (
                 <TextField
@@ -246,9 +241,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -265,6 +257,7 @@ export default function EmployeeIndividualHistory(props) {
                   district: { ...employee, newValue },
                 }))
               }
+              readOnly={readOnly}
               options={Districts}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => (
@@ -274,9 +267,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -293,6 +283,7 @@ export default function EmployeeIndividualHistory(props) {
                   province: { ...employee, newValue },
                 }))
               }
+              readOnly={readOnly}
               options={Provinces}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => (
@@ -302,9 +293,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -468,6 +456,7 @@ export default function EmployeeIndividualHistory(props) {
                     setEmployee({ ...employee, dateRange: new Date(value) });
                   }
                 }}
+                readOnly={readOnly}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -476,9 +465,6 @@ export default function EmployeeIndividualHistory(props) {
                     className="dotted font-15"
                     format="DD/MM/YYYY"
                     variant="standard"
-                    InputProps={{
-                      readOnly:readOnly,
-                    }}
                   />
                 )}
               />
@@ -506,6 +492,7 @@ export default function EmployeeIndividualHistory(props) {
                   issuedBy: { ...employee, newValue },
                 }))
               }
+              readOnly={readOnly}
               options={Provinces}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => (
@@ -515,9 +502,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -578,6 +562,7 @@ export default function EmployeeIndividualHistory(props) {
                   arr[index].relationship = newValue;
                   setEmployee({ ...employee, listRelationships: arr });
               }}
+              readOnly={readOnly}
               options={Related}
               getOptionLabel={(option) => option.related}
               renderInput={(params) => (
@@ -587,9 +572,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -604,6 +586,7 @@ export default function EmployeeIndividualHistory(props) {
                   arr[index].gender = newValue;
                   setEmployee({ ...employee, listRelationships: arr });
               }}
+              readOnly={readOnly}
               options={Gender}
               getOptionLabel={(option) => option.gender}
               renderInput={(params) => (
@@ -613,9 +596,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
@@ -632,6 +612,7 @@ export default function EmployeeIndividualHistory(props) {
                         setEmployee({ ...employee, listRelationships: arr });
                       }
                     }}
+                    readOnly={readOnly}
                     renderInput={(params) => (
                       <TextField
                         {...params}
@@ -640,9 +621,6 @@ export default function EmployeeIndividualHistory(props) {
                         className="dotted font-15"
                         format="DD/MM/YYYY"
                         variant="standard"
-                        InputProps={{
-                          readOnly:readOnly,
-                        }}
                       />
                     )}
                   />
@@ -658,6 +636,7 @@ export default function EmployeeIndividualHistory(props) {
                   arr[index].address = newValue;
                   setEmployee({ ...employee, listRelationships: arr });
               }}
+              readOnly={readOnly}
               options={Provinces}
               getOptionLabel={(option) => option.name}
               renderInput={(params) => (
@@ -667,9 +646,6 @@ export default function EmployeeIndividualHistory(props) {
                   className="dotted font-15"
                   fullWidth
                   variant="standard"
-                  InputProps={{
-                    readOnly:readOnly,
-                  }}
                 />
               )}
             />
