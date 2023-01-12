@@ -10,8 +10,8 @@ import { emphasize, styled } from '@mui/material/styles'
 import Chip from '@mui/material/Chip'
 import HomeIcon from '@mui/icons-material/Home'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
-
-// import DialogProfile from './Dialog/DialogProfile'
+import { getListDataEmployees } from './EmployeeManageService/EmployeeManageService'
+import DialogManage from './Dialog/DialogManage'
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -37,7 +37,7 @@ const EmployeeMainManager = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false)
-  const [listEmployee, setlistEmployee] = useState([])
+  const [listEmployee, setListEmployee] = useState([])
   const [employee, setEmployee] = useState({})
   const [pageSize, setPageSize] = React.useState(5)
 
@@ -46,10 +46,9 @@ const EmployeeMainManager = () => {
   }, [])
 
   const updatePageData = () => {
-    // getListDataEmployees()
-    // .then(res=> {
-    //   setlistEmployee(res.data.filter((item)=> item.status === "Đã duyệt"))
-    // })
+    getListDataEmployees().then((res) => {
+      setListEmployee(res.data.filter((e) => e.status === 'Đã duyệt'))
+    })
   }
 
   const columns = [
@@ -57,7 +56,7 @@ const EmployeeMainManager = () => {
       field: 'action',
       headerName: 'Thao tác',
       renderCell: ({ row }) => (
-        <Tooltip title="Cập nhật diễn biến">
+        <Tooltip title="Thông tin">
           <IconButton
             color="success"
             onClick={() => {
@@ -116,11 +115,11 @@ const EmployeeMainManager = () => {
             label="Home"
             icon={<HomeIcon fontSize="small" />}
           ></StyledBreadcrumb>
-          <StyledBreadcrumb component="a" href="/" label="Quản lý" />
+          <StyledBreadcrumb component="a" href="/" label="Quản lý nhân viên" />
           <StyledBreadcrumb
             component="a"
             href="/manage-employee-create"
-            label="Quản lý nhân viên"
+            label="Quản lý"
           />
         </Breadcrumbs>
       </div>
@@ -138,7 +137,8 @@ const EmployeeMainManager = () => {
             color: colors.greenAccent[300],
           },
           '& .MuiDataGrid-columnHeaders': {
-            backgroundColor: colors.blueAccent[700],
+            color: '#fbfbfb',
+            backgroundColor: '#0D4C92',
             borderBottom: 'none',
           },
           '& .MuiDataGrid-virtualScroller': {
@@ -146,10 +146,26 @@ const EmployeeMainManager = () => {
           },
           '& .MuiDataGrid-footerContainer': {
             borderTop: 'none',
-            backgroundColor: colors.blueAccent[700],
+            color: '#fbfbfb',
+            backgroundColor: '#0D4C92',
+          },
+          '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
+            color: '#fbfbfb',
+          },
+          '& .MuiDataGrid-footerContainer .MuiSvgIcon-root': {
+            color: '#fbfbfb',
+          },
+          '& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root': {
+            color: 'rgba(251,251,251,.5)',
           },
           '& .MuiCheckbox-root': {
             color: `${colors.greenAccent[200]} !important`,
+          },
+          '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
+            outline: 'none !important',
+          },
+          '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus': {
+            outline: 'none !important',
           },
         }}
       >
@@ -161,13 +177,13 @@ const EmployeeMainManager = () => {
           rowsPerPageOptions={[5, 10, 20]}
         />
       </Box>
-      {/* {shouldOpenDialog && (
-        <DialogProfile
+      {shouldOpenDialog && (
+        <DialogManage
           open={shouldOpenDialog}
           handleClose={handleClose}
           employee={employee}
         />
-      )} */}
+      )}
     </Box>
   )
 }
