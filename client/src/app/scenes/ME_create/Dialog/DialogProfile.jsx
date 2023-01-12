@@ -15,7 +15,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import EmployeeCV from "./EmployeeCV";
 import EmployeeIndividualHistory from "./EmployeeIndividualHistory";
 import EmployeeDiploma from "./EmployeeDiploma";
-import ConfirmationDialog from "app/components/ConfirmationDialog";
 import { toast } from "react-toastify";
 import "./Dialog.scss";
 import {
