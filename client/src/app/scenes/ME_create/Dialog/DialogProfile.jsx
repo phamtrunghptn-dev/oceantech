@@ -60,16 +60,16 @@ export default function DialogProfile(props) {
     const [value, setValue] = React.useState(0);
     const [shouldOpenDialogBrowser, setshouldOpenDialogBrowser] = useState(false);
     const firstRender = useRef(false);
-  console.log(readOnly)
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+
 
   useEffect(() => {
     if(firstRender.current) {
       if (item?.id) {
         if (item?.status === "Chờ duyệt") {
-          if(item.request){
+          if(item?.userRequest){
             editEmployee(item).then((res) => {
               toast.success("Gửi lãnh đạo thành công");
               handleClose();
@@ -89,22 +89,21 @@ export default function DialogProfile(props) {
           });
         }
       } else {
+        debugger
         if (item.status === "Chờ nộp hồ sơ") {
-          setItem({ ...item, id: uuidv4() });
-          addEmployee(item).then((res) => {
+          let obj = item;
+          obj.id = uuidv4()
+          addEmployee(obj).then((res) => {
             toast.success("Lưu hồ sơ ở trạng thái chờ duyệt");
             handleClose();
           });
         } else if (item.status === "Chờ duyệt") {
-          setItem({ ...item, id: uuidv4() });
-          if(item.request){
-            editEmployee(item).then((res) => {
+          let obj = item;
+          obj.id = uuidv4()
+            addEmployee(obj).then((res) => {
               toast.success("Gửi lãnh đạo thành công");
               handleClose();
             });
-          } else {
-            toast.warning("Vui lòng nhập đủ trường");
-          }
         }
       }
     } else {
@@ -221,8 +220,11 @@ export default function DialogProfile(props) {
           open={shouldOpenDialogBrowser}
           item={item?.userRequest}
           onYesClick={(value) =>
-            setItem({ ...item, status: "Chờ duyệt", userRequest: value })
+            {
+              setItem({ ...item, status: "Chờ duyệt", userRequest: value});
+            }
           }
+          setItem={setItem}
           onConfirmDialogClose={() => setshouldOpenDialogBrowser(false)}
         />
       )}

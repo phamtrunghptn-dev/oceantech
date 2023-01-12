@@ -149,10 +149,8 @@ export default function DiaLogCreateNew(props) {
     setValue(newValue)
   }
   const handleChangeZZ = (option) => {
-    console.log('11', option)
     formik.values.birthplace = option
   }
-  console.log(employee)
   return (
     <>
     <Dialog open={open} fullWidth maxWidth="lg">
