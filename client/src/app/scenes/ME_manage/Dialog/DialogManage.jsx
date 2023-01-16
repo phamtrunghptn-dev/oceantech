@@ -25,7 +25,7 @@ import GroupIcon from '@mui/icons-material/Group'
 import moment from 'moment'
 import DialogFinishEmployee from './DialogFinishEmployee'
 function DialogManage(props) {
-  const { open, handleClose, employee } = props
+  const { open, handleClose, employee, setEmployee } = props
   const [shouldOpenFinishDialog, setShouldOpenFinishDialog] = useState(false)
   const handleCloseFinishDialog = () => {
     setShouldOpenFinishDialog(false)
@@ -130,6 +130,7 @@ function DialogManage(props) {
           open={shouldOpenFinishDialog}
           handleClose={handleCloseFinishDialog}
           employee={employee}
+          setEmployee={setEmployee}
         />
       )}
     </>

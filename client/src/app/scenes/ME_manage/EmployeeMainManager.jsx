@@ -182,6 +182,7 @@ const EmployeeMainManager = () => {
           open={shouldOpenDialog}
           handleClose={handleClose}
           employee={employee}
+          setEmployee={setEmployee}
         />
       )}
     </Box>
