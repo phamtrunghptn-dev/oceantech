@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react'
 import Header from '../../components/Header'
 import { Box, useTheme, IconButton } from '@mui/material'
@@ -14,6 +15,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import { getListDataEmployees } from './LeadershipPendingService/LeadershipPendingService'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -38,7 +40,6 @@ const StyledBreadcrumb = styled(Chip)(({ theme }) => {
 const LeadershipPending = () => {
   const theme = useTheme()
   const colors = tokens(theme.palette.mode)
-
   const [listEmployee, setListEmployee] = useState([])
   const [shouldOpenProfile, setShouldOpenProfile] = useState(false)
   const [employee, setEmployee] = useState({})
@@ -220,6 +221,14 @@ const LeadershipPending = () => {
           open={shouldOpenProfile}
           handleClose={handleClose}
           employee={employee}
+        />
+      )}
+      {shouldOpenFinish && (
+        <DialogFinishEmployee 
+        open={shouldOpenFinish}
+        handleClose={handleClose}
+        employee={employee}
+        setEmployee={setEmployee}
         />
       )}
     </Box>

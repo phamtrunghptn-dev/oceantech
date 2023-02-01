@@ -62,10 +62,12 @@ const DialogUDSalary = (props) => {
     }
   }, [])
   useEffect(() => {
+
     setEmployee({
       ...employee,
       updateDevelopment: { ...employee?.updateDevelopment, salary: UDSalary },
     })
+
   }, [UDSalary])
 
   useEffect(() => {

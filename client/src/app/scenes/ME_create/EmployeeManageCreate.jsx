@@ -185,7 +185,7 @@ export default function EmployeeManageCreate() {
     },
     {
       field: 'phone',
-      headerName: 'Phone Number',
+      headerName: 'Số điện thoại',
       flex: 1,
       renderCell: ({ row }) => row?.phone,
     },

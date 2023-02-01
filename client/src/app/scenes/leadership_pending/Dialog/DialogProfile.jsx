@@ -168,7 +168,7 @@ export default function DialogProfile(props) {
 
           <div>
           <Button onClick={()=>setshouldOpenDialogBrowser(true)} className="button-confirm1 mr-10">
-              Duyệt
+          Phê duyệt
             </Button>
             <Button onClick={()=>setShouldOpenDialogAdditionalRequest(true)} className="button-confirm1 mr-10">
               Yêu cầu bổ sung
