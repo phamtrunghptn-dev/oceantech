@@ -16,7 +16,11 @@ export default function DialogAdditionalRequest(props) {
   const [request, setRequest] = useState("")
 
   const handleRequest = () => {
+    if(employee.ending){
+    setEmployee({...employee, status: "Yêu cầu bổ sung", request1: request})
+  } else {
     setEmployee({...employee, status: "Yêu cầu bổ sung", request: request})
+  }
   }
 
   return (

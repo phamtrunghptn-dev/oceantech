@@ -88,7 +88,6 @@ export default function DialogProfile(props) {
           });
         }
       } else {
-        debugger
         if (item.status === "Chờ nộp hồ sơ") {
           let obj = item;
           obj.id = uuidv4()
