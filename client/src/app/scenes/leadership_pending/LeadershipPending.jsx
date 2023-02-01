@@ -12,6 +12,7 @@ import { emphasize, styled } from '@mui/material/styles';
 import Chip from '@mui/material/Chip';
 import HomeIcon from '@mui/icons-material/Home';
 import {getListDataEmployees} from "./LeadershipPendingService/LeadershipPendingService";
+import DialogFinishEmployee from './Dialog/DialogFinishEmployee';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -41,6 +42,7 @@ const LeadershipPending = () => {
 
   const [listEmployee, setListEmployee] = useState([]);
   const [shouldOpenProfile, setShouldOpenProfile] = useState(false);
+  const [shouldOpenFinish, setShouldOpenFinish] = useState(false);
   const [employee, setEmployee] = useState({});
   const [pageSize, setPageSize] = React.useState(10);
 
@@ -62,6 +64,7 @@ const LeadershipPending = () => {
   },[listEmployee])
 
   const handleClose = () => {
+    setShouldOpenFinish(false)
     setShouldOpenProfile(false);
     updatePageData();
   }
@@ -72,8 +75,13 @@ const LeadershipPending = () => {
       color="success" 
       sortable={false}
       onClick={()=>{
+        if(row.ending){
+          setShouldOpenFinish(true)
+        } else {
+          setShouldOpenProfile(true)
+        }
         setEmployee(row)
-        setShouldOpenProfile(true)}
+        }
       } 
       >
         <RemoveRedEyeIcon />
@@ -159,8 +167,8 @@ const LeadershipPending = () => {
             color: colors.greenAccent[300],
           },
           '& .MuiDataGrid-columnHeaders': {
-            color: "#fbfbfb",
-            backgroundColor: "#2d353c",
+            color: '#fbfbfb',
+            backgroundColor: '#0D4C92',
             borderBottom: 'none',
           },
           '& .MuiDataGrid-virtualScroller': {
@@ -168,28 +176,27 @@ const LeadershipPending = () => {
           },
           '& .MuiDataGrid-footerContainer': {
             borderTop: 'none',
-            color: "#fbfbfb",
-            backgroundColor: "#2d353c",
+            color: '#fbfbfb',
+            backgroundColor: '#0D4C92',
           },
           '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
-            color: "#fbfbfb",
+            color: '#fbfbfb',
           },
           '& .MuiDataGrid-footerContainer .MuiSvgIcon-root': {
-            color: "#fbfbfb",
+            color: '#fbfbfb',
           },
           '& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root': {
-            color: "rgba(251,251,251,.5)",
+            color: 'rgba(251,251,251,.5)',
           },
           '& .MuiCheckbox-root': {
             color: `${colors.greenAccent[200]} !important`,
           },
-          "& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus": {
-            outline: "none !important",
+          '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
+            outline: 'none !important',
           },
-          "& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus":
-            {
-              outline: "none !important",
-            },
+          '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus': {
+            outline: 'none !important',
+          },
         }}
       >
         <DataGrid rows={listEmployee} columns={columns} pageSize={pageSize} onPageSizeChange={(newPageSize) => setPageSize(newPageSize)} rowsPerPageOptions={[10, 20, 50]} disableSelectionOnClick />
@@ -199,6 +206,14 @@ const LeadershipPending = () => {
         open={shouldOpenProfile}
         handleClose={handleClose}
         employee={employee}
+        />
+      )}
+      {shouldOpenFinish && (
+        <DialogFinishEmployee 
+        open={shouldOpenFinish}
+        handleClose={handleClose}
+        employee={employee}
+        setEmployee={setEmployee}
         />
       )}
     </Box>
