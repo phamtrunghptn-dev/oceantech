@@ -62,12 +62,20 @@ const DialogUpdateDevelopment = (props) => {
         </Box>
       </DialogTitle>
       <DialogContent>
-        {value === 'Đăng kí hồ sơ' && <DiaLogUDRegister />}
+
+        {value === 'Đăng kí hồ sơ' && (
+          <DiaLogUDRegister employee={employee} setEmployee={setEmployee} />
+        )}
         {value === 'Tăng lương' && (
           <DialogUDSalary employee={employee} setEmployee={setEmployee} />
         )}
-        {value === 'Thăng chức' && <DialogUDOrdain />}
-        {value === 'Đề xuất, tham mưu' && <DialogUDPropose />}
+        {value === 'Thăng chức' && (
+          <DialogUDOrdain employee={employee} setEmployee={setEmployee} />
+        )}
+        {value === 'Đề xuất, tham mưu' && (
+          <DialogUDPropose employee={employee} setEmployee={setEmployee} />
+        )}
+
       </DialogContent>
       <DialogActions>
         <Button

@@ -16,12 +16,22 @@ import * as Yup from 'yup'
 import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import { toast } from 'react-toastify'
+import { editEmployee } from '../EmployeeManageService/EmployeeManageService'
 const DialogFinishEmployee = (props) => {
-  const { open, handleClose, employee, setEmployee } = props
-  const [ending, setEnding] = useState(null)
+  const {
+    open,
+    handleClose,
+    employee,
+    setEmployee,
+    handleCloseFinishDialog,
+    updatePageData,
+  } = props
+  const [endingEmployee, setEndingEmployee] = useState({})
   const [submit, setSubmit] = useState(false)
+
   const formikEndingEmployee = useFormik({
-    initialValues: ending || {
+    initialValues: {
       date: '',
       reason: '',
     },
@@ -36,21 +46,40 @@ const DialogFinishEmployee = (props) => {
         .required('Vui lòng nhập ngày xin nghỉ!'),
     }),
     onSubmit: (values) => {
-      console.log(values)
-      console.log(ending)
+      setEmployee({
+        ...employee,
+        ending: values,
+        status: 'Chờ duyệt',
+      })
     },
   })
+
   useEffect(() => {
     if (submit) {
       formikEndingEmployee.handleSubmit()
     }
   }, [submit])
+  useEffect(() => {
+    if (employee.status === 'Chờ duyệt') {
+      editEmployee(employee).then(() => {
+        toast.success('Hồ sơ đã ở trạng thái chờ duyệt với yêu cầu kết thúc !')
+        handleClose()
+        handleCloseFinishDialog()
+        updatePageData()
+      })
+    }
+  }, [employee.status])
 
   return (
-    <Dialog open={open} onClose={handleClose} maxWidth="md" fullWidth>
+    <Dialog
+      open={open}
+      onClose={handleCloseFinishDialog}
+      maxWidth="md"
+      fullWidth
+    >
       <DialogTitle>
         <Box className="icon-close">
-          <IconButton onClick={handleClose}>
+          <IconButton onClick={handleCloseFinishDialog}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -309,12 +338,12 @@ const DialogFinishEmployee = (props) => {
           <Button
             className="button-confirm1"
             onClick={() => {
-              setSubmit(true)
+              formikEndingEmployee.handleSubmit()
             }}
           >
             Trình lãnh đạo
           </Button>
-          <Button className="button-cancel" onClick={handleClose}>
+          <Button className="button-cancel" onClick={handleCloseFinishDialog}>
             Hủy
           </Button>
         </DialogActions>

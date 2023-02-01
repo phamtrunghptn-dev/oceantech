@@ -47,7 +47,6 @@ const DialogUDSalary = (props) => {
     setValueUDSalary(obj)
   }
 
-
   const handleSubmitUDSalary = () => {
     editEmployee(employee).then((res) => {
       toast.success('Cập nhật diễn biến thành công')
@@ -63,7 +62,12 @@ const DialogUDSalary = (props) => {
     }
   }, [])
   useEffect(() => {
-    setEmployee({ ...employee, updateDevelopment: { salary: UDSalary } })
+
+    setEmployee({
+      ...employee,
+      updateDevelopment: { ...employee?.updateDevelopment, salary: UDSalary },
+    })
+
   }, [UDSalary])
 
   useEffect(() => {

@@ -24,11 +24,19 @@ import EmailIcon from '@mui/icons-material/Email'
 import GroupIcon from '@mui/icons-material/Group'
 import moment from 'moment'
 import DialogFinishEmployee from './DialogFinishEmployee'
+import DialogUpdateDevelopment from './DialogUpdateDevelopment'
 function DialogManage(props) {
-  const { open, handleClose, employee, setEmployee } = props
+  const { open, handleClose, employee, setEmployee, updatePageData } = props
   const [shouldOpenFinishDialog, setShouldOpenFinishDialog] = useState(false)
+  const [
+    shouldOpenUpdateDevelopmentDialog,
+    setShouldOpenUpdateDevelopmentDialog,
+  ] = useState(false)
   const handleCloseFinishDialog = () => {
     setShouldOpenFinishDialog(false)
+  }
+  const handleCloseUpdateDevelopmentDialog = () => {
+    setShouldOpenUpdateDevelopmentDialog(false)
   }
   return (
     <>
@@ -111,7 +119,10 @@ function DialogManage(props) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button className="button-confirm1" onClick={handleClose}>
+          <Button
+            className="button-confirm1"
+            onClick={() => setShouldOpenUpdateDevelopmentDialog(true)}
+          >
             Cập nhật diễn biến
           </Button>
           <Button
@@ -128,9 +139,23 @@ function DialogManage(props) {
       {shouldOpenFinishDialog && (
         <DialogFinishEmployee
           open={shouldOpenFinishDialog}
-          handleClose={handleCloseFinishDialog}
+          handleCloseFinishDialog={handleCloseFinishDialog}
           employee={employee}
           setEmployee={setEmployee}
+          handleClose={handleClose}
+          updatePageData={updatePageData}
+        />
+      )}
+      {shouldOpenUpdateDevelopmentDialog && (
+        <DialogUpdateDevelopment
+          open={shouldOpenUpdateDevelopmentDialog}
+          handleCloseUpdateDevelopmentDialog={
+            handleCloseUpdateDevelopmentDialog
+          }
+          employee={employee}
+          setEmployee={setEmployee}
+          handleClose={handleClose}
+          updatePageData={updatePageData}
         />
       )}
     </>
