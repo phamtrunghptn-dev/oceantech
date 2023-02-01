@@ -12,7 +12,8 @@ import HomeIcon from '@mui/icons-material/Home'
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye'
 import { getListDataEmployees } from './EmployeeManageService/EmployeeManageService'
 import DialogManage from './Dialog/DialogManage'
-
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
     theme.palette.mode === 'light'
@@ -105,10 +106,17 @@ const EmployeeMainManager = () => {
   const handleClose = () => {
     setShouldOpenDialog(false)
     setEmployee({})
+    updatePageData()
   }
 
   return (
     <Box m="20px">
+      <ToastContainer
+        autoClose={2000}
+        draggable={false}
+        limit={3}
+        theme="colored"
+      />
       <div role="presentation">
         <Breadcrumbs aria-label="breadcrumb" marginBottom="20px">
           <StyledBreadcrumb
@@ -183,6 +191,7 @@ const EmployeeMainManager = () => {
           handleClose={handleClose}
           employee={employee}
           setEmployee={setEmployee}
+          updatePageData={updatePageData}
         />
       )}
     </Box>
