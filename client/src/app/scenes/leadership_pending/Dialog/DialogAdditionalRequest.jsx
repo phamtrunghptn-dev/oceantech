@@ -51,7 +51,7 @@ export default function DialogAdditionalRequest(props) {
     </DialogContent>
     <DialogActions>
       <Button className="button-confirm1" onClick={handleRequest}>Xác nhận</Button>
-      <Button className="button-cancel" onClick={handleCloseDialog}>Cancel</Button>
+      <Button className="button-cancel" onClick={handleCloseDialog}>Đóng</Button>
     </DialogActions>
   </Dialog>
   )

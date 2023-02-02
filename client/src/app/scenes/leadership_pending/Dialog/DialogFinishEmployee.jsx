@@ -17,12 +17,35 @@ import moment from 'moment'
 import ConfirmationDialog from "app/components/ConfirmationDialog";
 import "./Dialog.scss"
 import DialogAdditionalRequest from "./DialogAdditionalRequest"
-
+import {editEmployee} from "../LeadershipPendingService/LeadershipPendingService"
 
 const DialogFinishEmployee = (props) => {
   const { open, handleClose, employee, setEmployee } = props
   const [shouldOpenDialogBrowser, setshouldOpenDialogBrowser] = useState(false);
   const [shouldOpenDialogAdditionalRequest, setShouldOpenDialogAdditionalRequest] = useState(false);
+  const [employeeEnding, setEmployeeEnding] = useState({})
+
+  useEffect(()=> {
+    setEmployeeEnding(employee)
+  },[])
+
+ useEffect(()=> {
+  if(employeeEnding.status === "Kết thúc"){
+    editEmployee(employeeEnding)
+    .then(res=> {
+      toast.success("Duyệt đơn xin nghỉ việc thành công")
+      handleClose()
+    })
+    .catch(err=> toast.error("Có lỗi xảy ra"))
+  } else if(employeeEnding.status === "Yêu cầu bổ sung"){
+    editEmployee(employeeEnding)
+    .then(res=> {
+      toast.success("Gửi yêu cầu thành công")
+      handleClose()
+    })
+    .catch(err=> toast.error("Có lỗi xảy ra"))
+  }
+ },[employeeEnding.status])
 
   return (
     <>
@@ -284,7 +307,7 @@ const DialogFinishEmployee = (props) => {
         title="Xác nhận"
         text="Bạn có muốn duyệt yêu cầu kết thúc hồ sơ nhân viên này"
         open={shouldOpenDialogBrowser}
-        onYesClick={()=> setEmployee({...employee, status: "Kết thúc"})}
+        onYesClick={()=> setEmployeeEnding({...employee, status: "Kết thúc"})}
         onConfirmDialogClose={()=>setshouldOpenDialogBrowser(false)}
         />
       )}
@@ -292,8 +315,8 @@ const DialogFinishEmployee = (props) => {
         <DialogAdditionalRequest 
         open={shouldOpenDialogAdditionalRequest}
         handleCloseDialog={()=>setShouldOpenDialogAdditionalRequest(false)}
-        employee={employee}
-        setEmployee={setEmployee}
+        employee={employeeEnding}
+        setEmployee={setEmployeeEnding}
         />
       )}
     </>

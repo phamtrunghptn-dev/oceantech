@@ -103,7 +103,7 @@ export default function DialogDeposit(props) {
       </DialogContent>
       <DialogActions>
         <Button className="button-confirm1" type="submit">Xác nhận</Button>
-        <Button className="button-cancel" onClick={handleCloseDialog}>Cancel</Button>
+        <Button className="button-cancel" onClick={handleCloseDialog}>Đóng</Button>
       </DialogActions>
       </form>
     </Dialog>

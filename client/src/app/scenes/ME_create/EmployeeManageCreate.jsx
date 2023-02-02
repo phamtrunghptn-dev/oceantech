@@ -21,6 +21,7 @@ import {
   deleteEmployee,
 } from './EmployeeManagerService/EmployeeManageService'
 import DialogProfile from './Dialog/DialogProfile'
+import DialogAdditionalRequest from './Dialog/DialogAdditionalRequest'
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -74,6 +75,7 @@ export default function EmployeeManageCreate() {
   const [shouldOpenConfirmDialog, setShouldOpenConfirmDialog] = useState(false)
   const [shouldOpenEditDialog, setShouldOpenEditDialog] = useState(false)
   const [shouldOpenViewDialog, setShouldOpenViewDialog] = useState(false)
+  const [shouldOpenviewRequestDialog, setShouldOpenviewRequestDialog] = useState(false)
   const [readOnly, setReadOnly] = useState(false)
   useEffect(() => {
     updateDataEmployee()
@@ -116,12 +118,15 @@ export default function EmployeeManageCreate() {
           <IconButton
             color="success"
             onClick={() => {
+              if(row?.request){
+                setShouldOpenviewRequestDialog(true)
+              } else {
+                setShouldOpenViewDialog(true)
+              }
               setEmployee(row)
-              setShouldOpenViewDialog(true)
               setReadOnly(true)
             }}
             disabled={
-              row.status === 'Yêu cầu bổ sung' ||
               row.status === 'Kết thúc' ||
               row.status === 'Chờ nộp hồ sơ' ||
               row.status === 'Lưu mới'
@@ -212,6 +217,8 @@ export default function EmployeeManageCreate() {
   const handleClose = () => {
     setShouldOpenConfirmDialog(false)
     setShouldOpenEditDialog(false)
+    setShouldOpenViewDialog(false)
+    setShouldOpenviewRequestDialog(false)
     updateDataEmployee()
     setEmployee({
       code: '',
@@ -278,46 +285,47 @@ export default function EmployeeManageCreate() {
           m="10px 0 0 0"
           height="70vh"
           sx={{
-            '& .MuiDataGrid-root': {
-              border: 'none',
+            "& .MuiDataGrid-root": {
+              border: "none",
             },
-            '& .MuiDataGrid-cell': {
-              borderBottom: 'none',
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
             },
-            '& .name-column--cell': {
+            "& .name-column--cell": {
               color: colors.greenAccent[300],
             },
-            '& .MuiDataGrid-columnHeaders': {
-              color: '#fbfbfb',
-              backgroundColor: '#0D4C92',
-              borderBottom: 'none',
+            "& .MuiDataGrid-columnHeaders": {
+              color: "#fbfbfb",
+              backgroundColor: "#0D4C92",
+              borderBottom: "none",
             },
-            '& .MuiDataGrid-virtualScroller': {
+            "& .MuiDataGrid-virtualScroller": {
               backgroundColor: colors.primary[400],
             },
-            '& .MuiDataGrid-footerContainer': {
-              borderTop: 'none',
-              color: '#fbfbfb',
-              backgroundColor: '#0D4C92',
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              color: "#fbfbfb",
+              backgroundColor: "#0D4C92",
             },
-            '& .MuiDataGrid-footerContainer > .MuiTablePagination-root': {
-              color: '#fbfbfb',
+            "& .MuiDataGrid-footerContainer > .MuiTablePagination-root": {
+              color: "#fbfbfb",
             },
-            '& .MuiDataGrid-footerContainer .MuiSvgIcon-root': {
-              color: '#fbfbfb',
+            "& .MuiDataGrid-footerContainer .MuiSvgIcon-root": {
+              color: "#fbfbfb",
             },
-            '& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root': {
-              color: 'rgba(251,251,251,.5)',
+            "& .MuiDataGrid-footerContainer .Mui-disabled .MuiSvgIcon-root": {
+              color: "rgba(251,251,251,.5)",
             },
-            '& .MuiCheckbox-root': {
+            "& .MuiCheckbox-root": {
               color: `${colors.greenAccent[200]} !important`,
             },
-            '& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus': {
-              outline: 'none !important',
+            "& .MuiDataGrid-cell:focus-within, & .MuiDataGrid-cell:focus": {
+              outline: "none !important",
             },
-            '& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus': {
-              outline: 'none !important',
-            },
+            "& .MuiDataGrid-columnHeader:focus-within, & .MuiDataGrid-columnHeader:focus":
+              {
+                outline: "none !important",
+              },
           }}
         >
           <DataGrid rows={listDataEmployees} columns={columns} />
@@ -336,12 +344,12 @@ export default function EmployeeManageCreate() {
       )}
 
       {shouldOpenViewDialog && (
-        <DialogProfile 
-        open={shouldOpenViewDialog}
-        handleCloseDialog={()=>setShouldOpenViewDialog(false)}
-        item={employee}
-        readOnly={readOnly}
-          />
+        <DialogProfile
+          open={shouldOpenViewDialog}
+          handleCloseDialog={handleClose}
+          item={employee}
+          readOnly={readOnly}
+        />
       )}
 
       {shouldOpenConfirmDialog && (
@@ -353,6 +361,13 @@ export default function EmployeeManageCreate() {
           onConfirmDialogClose={handleClose}
         />
       )}
+      {shouldOpenviewRequestDialog && (
+        <DialogAdditionalRequest
+          open={shouldOpenviewRequestDialog}
+          handleCloseDialog={handleClose}
+          employee={employee}
+        />
+      )}
     </>
-  )
+  );
 }
