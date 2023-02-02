@@ -15,6 +15,7 @@ import HomeIcon from '@mui/icons-material/Home'
 import { getListDataEmployees } from './LeadershipPendingService/LeadershipPendingService'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import DialogFinishEmployee from "./Dialog/DialogFinishEmployee"
 
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
@@ -42,6 +43,7 @@ const LeadershipPending = () => {
   const colors = tokens(theme.palette.mode)
   const [listEmployee, setListEmployee] = useState([])
   const [shouldOpenProfile, setShouldOpenProfile] = useState(false)
+  const [shouldOpenFinish, setShouldOpenFinish] = useState(false)
   const [employee, setEmployee] = useState({})
   const [pageSize, setPageSize] = React.useState(10)
 
@@ -66,6 +68,7 @@ const LeadershipPending = () => {
 
   const handleClose = () => {
     setShouldOpenProfile(false)
+    setShouldOpenFinish(false)
     updatePageData()
   }
 
@@ -80,8 +83,12 @@ const LeadershipPending = () => {
           color="success"
           sortable={false}
           onClick={() => {
+            if(row?.ending){
+              setShouldOpenFinish(true)
+            } else{
+              setShouldOpenProfile(true)
+            }
             setEmployee(row)
-            setShouldOpenProfile(true)
           }}
         >
           <RemoveRedEyeIcon />
