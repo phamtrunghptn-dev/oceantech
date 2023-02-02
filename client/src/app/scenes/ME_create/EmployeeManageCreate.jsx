@@ -22,6 +22,8 @@ import {
 } from './EmployeeManagerService/EmployeeManageService'
 import DialogProfile from './Dialog/DialogProfile'
 import DialogAdditionalRequest from './Dialog/DialogAdditionalRequest'
+import DialogRefuse from "./Dialog/DialogRefuse";
+import ErrorIcon from '@mui/icons-material/Error';
 
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
@@ -76,6 +78,7 @@ export default function EmployeeManageCreate() {
   const [shouldOpenEditDialog, setShouldOpenEditDialog] = useState(false)
   const [shouldOpenViewDialog, setShouldOpenViewDialog] = useState(false)
   const [shouldOpenviewRequestDialog, setShouldOpenviewRequestDialog] = useState(false)
+  const [shouldOpenDialogRefuse, setShouldOpenDialogRefuse] = useState(false);
   const [readOnly, setReadOnly] = useState(false)
   useEffect(() => {
     updateDataEmployee()
@@ -86,8 +89,8 @@ export default function EmployeeManageCreate() {
         res.data.filter(
           (item) =>
             item.status === 'Lưu mới' ||
-            item.status === 'Từ chối' ||
-            item.status === 'Yêu cầu bổ sung' ||
+            ( item.status === 'Từ chối' && item?.refuse) ||
+           ( item.status === 'Yêu cầu bổ sung' && item?.request) ||
             item.status === 'Chờ nộp hồ sơ' ||
             item.status === 'Chờ xử lý' 
         ),
@@ -115,21 +118,35 @@ export default function EmployeeManageCreate() {
 
       renderCell: ({ row }) => (
         <>
+        <IconButton
+             className="icon-btn1 "
+             onClick={() => {
+              if(row?.request1){
+                setShouldOpenviewRequestDialog(true)
+              } else if(row?.refuse){
+                setShouldOpenDialogRefuse(true)
+              }
+               setEmployee(row)
+             }}
+             disabled={
+              row.status === 'Lưu mới' ||
+              row.status === 'Chờ nộp hồ sơ'
+            }
+           >
+             <ErrorIcon />
+           </IconButton>
           <IconButton
             color="success"
             onClick={() => {
-              if(row?.request){
-                setShouldOpenviewRequestDialog(true)
-              } else {
-                setShouldOpenViewDialog(true)
-              }
+              setShouldOpenViewDialog(true)
               setEmployee(row)
               setReadOnly(true)
             }}
             disabled={
               row.status === 'Kết thúc' ||
               row.status === 'Chờ nộp hồ sơ' ||
-              row.status === 'Lưu mới'
+              row.status === 'Lưu mới' ||
+              row.status === 'Từ chối'
             }
           >
             <RemoveRedEyeIcon />
@@ -219,6 +236,7 @@ export default function EmployeeManageCreate() {
     setShouldOpenEditDialog(false)
     setShouldOpenViewDialog(false)
     setShouldOpenviewRequestDialog(false)
+    setShouldOpenDialogRefuse(false)
     updateDataEmployee()
     setEmployee({
       code: '',
@@ -364,6 +382,13 @@ export default function EmployeeManageCreate() {
       {shouldOpenviewRequestDialog && (
         <DialogAdditionalRequest
           open={shouldOpenviewRequestDialog}
+          handleCloseDialog={handleClose}
+          employee={employee}
+        />
+      )}
+      {shouldOpenDialogRefuse && (
+        <DialogRefuse
+          open={shouldOpenDialogRefuse}
           handleCloseDialog={handleClose}
           employee={employee}
         />

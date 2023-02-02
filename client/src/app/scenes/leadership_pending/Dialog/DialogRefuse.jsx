@@ -16,7 +16,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 
 export default function DialogRefuse(props) {
-  const { open, handleCloseDialog, handleClose, employee, setEmployee } = props;
+  const { open, handleCloseDialog, employee, setEmployee } = props;
 
   const formik = useFormik({
     initialValues: {
@@ -35,7 +35,11 @@ export default function DialogRefuse(props) {
         .required("Vui lòng nhập từ chối!"),
     }),
     onSubmit: (values) => {
-      setEmployee({ ...employee, status: "Từ chối", refuse: values });
+      if(employee?.ending){
+        setEmployee({ ...employee, status: "Từ chối", refuse1: values });
+      } else {
+        setEmployee({ ...employee, status: "Từ chối", refuse: values });
+      }
     },
   });
 
@@ -131,7 +135,7 @@ export default function DialogRefuse(props) {
           </Grid>
         </DialogContent>
         <DialogActions>
-          <Button type="submit" className="button-confirm">
+          <Button type="submit" className="button-confirm1">
             Xác nhận
           </Button>
           <Button className="button-cancel" onClick={handleCloseDialog}>

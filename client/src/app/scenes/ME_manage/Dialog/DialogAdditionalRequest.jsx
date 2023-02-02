@@ -17,7 +17,7 @@ export default function DialogAdditionalRequest(props) {
     const [request, setRequest] = useState("")
     
     useEffect(()=> {
-      setRequest(employee?.request)
+      setRequest(employee?.request1)
     },[])
 
     return (

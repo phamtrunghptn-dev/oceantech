@@ -120,8 +120,9 @@ function DialogManage(props) {
         </DialogContent>
         <DialogActions>
           <Button
-            className="button-confirm1"
+            className={employee?.status === "Yêu cầu bổ sung" ? "button-confirm1 button-disabled" : "button-confirm1"}
             onClick={() => setShouldOpenUpdateDevelopmentDialog(true)}
+            disabled={employee?.status === "Yêu cầu bổ sung"}
           >
             Cập nhật diễn biến
           </Button>
