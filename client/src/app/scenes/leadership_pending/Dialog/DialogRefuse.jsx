@@ -135,7 +135,7 @@ export default function DialogRefuse(props) {
             Xác nhận
           </Button>
           <Button className="button-cancel" onClick={handleCloseDialog}>
-            Cancel
+            Đóng
           </Button>
         </DialogActions>
       </form>
