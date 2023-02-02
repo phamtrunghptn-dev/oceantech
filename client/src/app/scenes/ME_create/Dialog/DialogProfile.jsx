@@ -219,7 +219,7 @@ export default function DialogProfile(props) {
           item={item?.userRequest}
           onYesClick={(value) =>
             {
-              setItem({ ...item, status: "Chờ duyệt", userRequest: value});
+              setItem({ ...item, status: "Chờ duyệt",request: "" , userRequest: value});
             }
           }
           setItem={setItem}

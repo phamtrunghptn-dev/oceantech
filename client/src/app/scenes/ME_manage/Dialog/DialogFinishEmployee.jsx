@@ -32,8 +32,8 @@ const DialogFinishEmployee = (props) => {
 
   const formikEndingEmployee = useFormik({
     initialValues: {
-      date: '',
-      reason: '',
+      date: employee?.ending ? employee?.ending?.date : '',
+      reason: employee?.ending ? employee?.ending?.reason : '',
     },
     enableReinitialize: true,
     validateOnChange: false,

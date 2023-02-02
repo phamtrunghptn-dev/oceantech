@@ -18,11 +18,14 @@ import ConfirmationDialog from "app/components/ConfirmationDialog";
 import "./Dialog.scss"
 import DialogAdditionalRequest from "./DialogAdditionalRequest"
 import {editEmployee} from "../LeadershipPendingService/LeadershipPendingService"
+import { toast } from 'react-toastify'
+import DialogRefuse from "./DialogRefuse";
 
 const DialogFinishEmployee = (props) => {
   const { open, handleClose, employee, setEmployee } = props
   const [shouldOpenDialogBrowser, setshouldOpenDialogBrowser] = useState(false);
   const [shouldOpenDialogAdditionalRequest, setShouldOpenDialogAdditionalRequest] = useState(false);
+  const [shouldOpenDialogRefuse, setShouldOpenDialogRefuse] = useState(false);
   const [employeeEnding, setEmployeeEnding] = useState({})
 
   useEffect(()=> {
@@ -41,6 +44,13 @@ const DialogFinishEmployee = (props) => {
     editEmployee(employeeEnding)
     .then(res=> {
       toast.success("Gửi yêu cầu thành công")
+      handleClose()
+    })
+    .catch(err=> toast.error("Có lỗi xảy ra"))
+  } else if(employeeEnding.status === "Từ chối"){
+    editEmployee(employeeEnding)
+    .then(res=> {
+      toast.success("Đã từ chối đơn xin việc này")
       handleClose()
     })
     .catch(err=> toast.error("Có lỗi xảy ra"))
@@ -294,7 +304,7 @@ const DialogFinishEmployee = (props) => {
         <Button onClick={()=>setShouldOpenDialogAdditionalRequest(true)} className="button-confirm1 mr-10">
           Yêu cầu bổ sung
         </Button>
-        <Button className="button-cancel1" onClick={handleClose}>
+        <Button className="button-cancel1" onClick={()=>setShouldOpenDialogRefuse(true)}>
           Từ chối
         </Button>
         <Button className="button-cancel" onClick={handleClose}>
@@ -317,6 +327,14 @@ const DialogFinishEmployee = (props) => {
         handleCloseDialog={()=>setShouldOpenDialogAdditionalRequest(false)}
         employee={employeeEnding}
         setEmployee={setEmployeeEnding}
+        />
+      )}
+       {shouldOpenDialogRefuse && (
+        <DialogRefuse
+          open={shouldOpenDialogRefuse}
+          handleCloseDialog={()=>setShouldOpenDialogRefuse(false)}
+          employee={employeeEnding}
+          setEmployee={setEmployeeEnding}
         />
       )}
     </>

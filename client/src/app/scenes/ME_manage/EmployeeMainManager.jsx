@@ -14,6 +14,11 @@ import { getListDataEmployees } from './EmployeeManageService/EmployeeManageServ
 import DialogManage from './Dialog/DialogManage'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import DialogAdditionalRequest from './Dialog/DialogAdditionalRequest'
+import DialogRefuse from "./Dialog/DialogRefuse";
+import EditIcon from '@mui/icons-material/Edit'
+import ErrorIcon from '@mui/icons-material/Error';
+
 const StyledBreadcrumb = styled(Chip)(({ theme }) => {
   const backgroundColor =
     theme.palette.mode === 'light'
@@ -40,6 +45,8 @@ const EmployeeMainManager = () => {
   const [shouldOpenDialog, setShouldOpenDialog] = useState(false)
   const [listEmployee, setListEmployee] = useState([])
   const [employee, setEmployee] = useState({})
+  const [shouldOpenviewRequestDialog, setShouldOpenviewRequestDialog] = useState(false)
+  const [shouldOpenDialogRefuse, setShouldOpenDialogRefuse] = useState(false);
   const [pageSize, setPageSize] = React.useState(5)
 
   useEffect(() => {
@@ -48,7 +55,7 @@ const EmployeeMainManager = () => {
 
   const updatePageData = () => {
     getListDataEmployees().then((res) => {
-      setListEmployee(res.data.filter((e) => e.status === 'Đã duyệt'))
+      setListEmployee(res.data.filter((e) => e.status === 'Đã duyệt' ||  ( e.status === 'Yêu cầu bổ sung' && e?.request1) || ( e.status === 'Từ chối' && e?.refuse1)))
     })
   }
 
@@ -57,17 +64,37 @@ const EmployeeMainManager = () => {
       field: 'action',
       headerName: 'Thao tác',
       renderCell: ({ row }) => (
-        <Tooltip title="Thông tin">
+        <>
+         <IconButton
+             className="icon-btn1 "
+             onClick={() => {
+              if(row?.request1){
+                setShouldOpenviewRequestDialog(true)
+              } else if(row?.refuse1){
+                setShouldOpenDialogRefuse(true)
+              }
+               setEmployee(row)
+             }}
+             disabled={
+              row.status === 'Lưu mới' ||
+              row.status === 'Chờ nộp hồ sơ'
+            }
+           >
+             <ErrorIcon />
+           </IconButton>
           <IconButton
             color="success"
             onClick={() => {
-              setShouldOpenDialog(true)
+                setShouldOpenDialog(true)
               setEmployee(row)
             }}
+            disabled={
+              row.status === 'Từ chối'
+            }
           >
             <RemoveRedEyeIcon />
           </IconButton>
-        </Tooltip>
+          </>
       ),
     },
     {
@@ -101,10 +128,26 @@ const EmployeeMainManager = () => {
       flex: 1,
       renderCell: ({ row }) => row?.email,
     },
+    {
+      field: 'status',
+      headerName: 'Trạng thái',
+      flex: 1.5,
+      renderCell: ({ row }) => {
+        if(row?.status === "Yêu cầu bổ sung"){
+          return "Yêu cầu bổ sung đơn xin nghỉ việc"
+        } else if(row?.status === "Từ chối"){
+          return "Từ chối đơn xin nghỉ việc"
+        } else if(row?.status === "Đã duyệt") {
+          return "Nhân viên chính thức"
+        }
+      },
+    },
   ]
 
   const handleClose = () => {
     setShouldOpenDialog(false)
+    setShouldOpenviewRequestDialog(false)
+    setShouldOpenDialogRefuse(false)
     setEmployee({})
     updatePageData()
   }
@@ -192,6 +235,20 @@ const EmployeeMainManager = () => {
           employee={employee}
           setEmployee={setEmployee}
           updatePageData={updatePageData}
+        />
+      )}
+       {shouldOpenviewRequestDialog && (
+        <DialogAdditionalRequest
+          open={shouldOpenviewRequestDialog}
+          handleCloseDialog={handleClose}
+          employee={employee}
+        />
+      )}
+      {shouldOpenDialogRefuse && (
+        <DialogRefuse
+          open={shouldOpenDialogRefuse}
+          handleCloseDialog={handleClose}
+          employee={employee}
         />
       )}
     </Box>

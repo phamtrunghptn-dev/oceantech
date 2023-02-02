@@ -39,6 +39,11 @@
     opacity: 0.7;
   }
 }
+
+.button-disabled {
+    opacity: 0.5 !important;
+}
+
 .flex {
   display: flex;
   gap: 20;
@@ -53,4 +58,8 @@
 .icon-left {
   margin-right: 5px;
   color: #0d4c92;
+}
+
+.icon-btn1 {
+  color: #0d4c92 !important;
 }
