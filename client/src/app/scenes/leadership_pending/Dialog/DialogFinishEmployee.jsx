@@ -14,20 +14,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import moment from 'moment'
-<<<<<<< Updated upstream
-import ConfirmationDialog from "app/components/ConfirmationDialog";
-import "./Dialog.scss"
-import DialogAdditionalRequest from "./DialogAdditionalRequest"
-import {editEmployee} from "../LeadershipPendingService/LeadershipPendingService"
-import { toast } from 'react-toastify'
-import DialogRefuse from "./DialogRefuse";
-
-const DialogFinishEmployee = (props) => {
-  const { open, handleClose, employee, setEmployee } = props
-  const [shouldOpenDialogBrowser, setshouldOpenDialogBrowser] = useState(false);
-  const [shouldOpenDialogAdditionalRequest, setShouldOpenDialogAdditionalRequest] = useState(false);
-  const [shouldOpenDialogRefuse, setShouldOpenDialogRefuse] = useState(false);
-=======
 import ConfirmationDialog from 'app/components/ConfirmationDialog'
 import './Dialog.scss'
 import DialogAdditionalRequest from './DialogAdditionalRequest'
@@ -40,39 +26,12 @@ const DialogFinishEmployee = (props) => {
     shouldOpenDialogAdditionalRequest,
     setShouldOpenDialogAdditionalRequest,
   ] = useState(false)
->>>>>>> Stashed changes
   const [employeeEnding, setEmployeeEnding] = useState({})
 
   useEffect(() => {
     setEmployeeEnding(employee)
   }, [])
 
-<<<<<<< Updated upstream
- useEffect(()=> {
-  if(employeeEnding.status === "Kết thúc"){
-    editEmployee(employeeEnding)
-    .then(res=> {
-      toast.success("Duyệt đơn xin nghỉ việc thành công")
-      handleClose()
-    })
-    .catch(err=> toast.error("Có lỗi xảy ra"))
-  } else if(employeeEnding.status === "Yêu cầu bổ sung"){
-    editEmployee(employeeEnding)
-    .then(res=> {
-      toast.success("Gửi yêu cầu thành công")
-      handleClose()
-    })
-    .catch(err=> toast.error("Có lỗi xảy ra"))
-  } else if(employeeEnding.status === "Từ chối"){
-    editEmployee(employeeEnding)
-    .then(res=> {
-      toast.success("Đã từ chối đơn xin việc này")
-      handleClose()
-    })
-    .catch(err=> toast.error("Có lỗi xảy ra"))
-  }
- },[employeeEnding.status])
-=======
   useEffect(() => {
     if (employeeEnding.status === 'Kết thúc') {
       editEmployee(employeeEnding)
@@ -90,7 +49,6 @@ const DialogFinishEmployee = (props) => {
         .catch((err) => toast.error('Có lỗi xảy ra'))
     }
   }, [employeeEnding.status])
->>>>>>> Stashed changes
 
   return (
     <>
@@ -351,41 +309,6 @@ const DialogFinishEmployee = (props) => {
             onClick={() => setShouldOpenDialogAdditionalRequest(true)}
             className="button-confirm1 mr-10"
           >
-<<<<<<< Updated upstream
-            <Grid item sm={3} xs={3}>
-              <span
-                className="font-15"
-                style={{ fontWeight: 'bold', textDecoration: 'uppercase' }}
-              >
-                {employee.name}
-              </span>
-            </Grid>
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogActions>
-        <Button className="button-confirm1" onClick={() => {setshouldOpenDialogBrowser(true)}}>
-          Phê duyệt
-        </Button>
-        <Button onClick={()=>setShouldOpenDialogAdditionalRequest(true)} className="button-confirm1 mr-10">
-          Yêu cầu bổ sung
-        </Button>
-        <Button className="button-cancel1" onClick={()=>setShouldOpenDialogRefuse(true)}>
-          Từ chối
-        </Button>
-        <Button className="button-cancel" onClick={handleClose}>
-          Hủy
-        </Button>
-      </DialogActions>
-    </Dialog>
-    {shouldOpenDialogBrowser &&(
-        <ConfirmationDialog 
-        title="Xác nhận"
-        text="Bạn có muốn duyệt yêu cầu kết thúc hồ sơ nhân viên này"
-        open={shouldOpenDialogBrowser}
-        onYesClick={()=> setEmployeeEnding({...employee, status: "Kết thúc"})}
-        onConfirmDialogClose={()=>setshouldOpenDialogBrowser(false)}
-=======
             Yêu cầu bổ sung
           </Button>
           <Button className="button-cancel1" onClick={handleClose}>
@@ -405,7 +328,6 @@ const DialogFinishEmployee = (props) => {
             setEmployeeEnding({ ...employee, status: 'Kết thúc' })
           }
           onConfirmDialogClose={() => setshouldOpenDialogBrowser(false)}
->>>>>>> Stashed changes
         />
       )}
       {shouldOpenDialogAdditionalRequest && (
@@ -416,10 +338,10 @@ const DialogFinishEmployee = (props) => {
           setEmployee={setEmployeeEnding}
         />
       )}
-       {shouldOpenDialogRefuse && (
+      {shouldOpenDialogRefuse && (
         <DialogRefuse
           open={shouldOpenDialogRefuse}
-          handleCloseDialog={()=>setShouldOpenDialogRefuse(false)}
+          handleCloseDialog={() => setShouldOpenDialogRefuse(false)}
           employee={employeeEnding}
           setEmployee={setEmployeeEnding}
         />
