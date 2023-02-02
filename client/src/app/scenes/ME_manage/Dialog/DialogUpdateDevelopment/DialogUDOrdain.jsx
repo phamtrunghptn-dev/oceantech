@@ -97,7 +97,9 @@ const DialogUDOrdain = (props) => {
         .typeError('Sai định dạng ngày!')
         .max(new Date(), 'Ngày sinh được lớn hơn ngày hiện tại!')
         .required('Vui lòng nhập ngày sinh!'),
-      count: Yup.number().required('Vui lòng nhập lần tăng chức !'),
+      count: Yup.number()
+        .required('Vui lòng nhập lần tăng chức !')
+        .min(0, 'Giá trị lớn hơn 0'),
       reason: Yup.string().required('Vui lòng nhập lý do tăng chức !'),
       newPos: Yup.string().required('Vui lòng nhập chức vụ mới!'),
     }),
@@ -153,7 +155,7 @@ const DialogUDOrdain = (props) => {
     },
     {
       field: 'date',
-      headerName: 'Ngày tăng lương',
+      headerName: 'Ngày tăng chức',
       type: 'number',
       headerAlign: 'left',
       align: 'left',
@@ -174,7 +176,7 @@ const DialogUDOrdain = (props) => {
       headerName: 'Chức vụ cũ',
     },
     {
-      field: 'NewPos',
+      field: 'newPos',
       headerName: 'Chức vụ mới',
     },
   ]
@@ -182,7 +184,6 @@ const DialogUDOrdain = (props) => {
     <>
       <Box noValidate autoComplete="off">
         <Box>
-          <h2>Diễn biến: Tăng chức</h2>
           <form onSubmit={formikUDOrdain.handleSubmit}>
             <Card style={{ padding: 5, alignItems: 'center' }}>
               <Grid container spacing={2}>

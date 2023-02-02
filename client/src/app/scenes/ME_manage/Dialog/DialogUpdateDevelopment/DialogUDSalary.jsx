@@ -62,12 +62,10 @@ const DialogUDSalary = (props) => {
     }
   }, [])
   useEffect(() => {
-
     setEmployee({
       ...employee,
       updateDevelopment: { ...employee?.updateDevelopment, salary: UDSalary },
     })
-
   }, [UDSalary])
 
   useEffect(() => {
@@ -94,9 +92,13 @@ const DialogUDSalary = (props) => {
         .typeError('Sai định dạng ngày!')
         .max(new Date(), 'Ngày sinh được lớn hơn ngày hiện tại!')
         .required('Vui lòng nhập ngày sinh!'),
-      count: Yup.number().required('Vui lòng nhập lần tăng lương !'),
+      count: Yup.number()
+        .required('Vui lòng nhập lần tăng lương !')
+        .min(0, 'Giá trị lớn hơn 0'),
       reason: Yup.string().required('Vui lòng nhập lý do tăng lương !'),
-      rank: Yup.number().required('Vui lòng nhập bậc lương!'),
+      rank: Yup.number()
+        .required('Vui lòng nhập bậc lương!')
+        .min(0, 'Giá trị lớn hơn 0'),
     }),
     onSubmit: (values, actions) => {
       if (valueUDSalary) {
@@ -175,7 +177,6 @@ const DialogUDSalary = (props) => {
     <>
       <Box noValidate autoComplete="off">
         <Box>
-          <h2>Diễn biến: Tăng lương</h2>
           <form onSubmit={formikUDSalary.handleSubmit}>
             <Card style={{ padding: 5, alignItems: 'center' }}>
               <Grid container spacing={2}>
