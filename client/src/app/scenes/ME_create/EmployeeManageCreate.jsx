@@ -115,13 +115,14 @@ export default function EmployeeManageCreate() {
       field: 'action',
       headerName: 'Thao tác',
       flex: 0.5,
-
+      headerAlign: 'center',
+      align: 'center',
       renderCell: ({ row }) => (
         <>
         <IconButton
-             className="icon-btn1 "
+             className={(row.status === 'Lưu mới' || row.status === 'Chờ nộp hồ sơ') ? "icon-btn1-disable" : "icon-btn1"}
              onClick={() => {
-              if(row?.request1){
+              if(row?.request){
                 setShouldOpenviewRequestDialog(true)
               } else if(row?.refuse){
                 setShouldOpenDialogRefuse(true)
@@ -190,37 +191,45 @@ export default function EmployeeManageCreate() {
       field: 'code',
       headerName: 'Mã nhân viên',
       renderCell: ({ row }) => row?.code,
+      flex: 0.4,
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'name',
       headerName: 'Họ và Tên',
-      flex: 1,
+      flex: 0.8,
       renderCell: ({ row }) => row?.name,
     },
     {
       field: 'birthDay',
       headerName: 'Ngày sinh',
       type: 'date',
-      headerAlign: 'left',
-      align: 'left',
+      flex: 0.4,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: ({ row }) => moment(row?.birthDay).format('DD/MM/YYYY'),
     },
     {
       field: 'phone',
       headerName: 'Số điện thoại',
-      flex: 1,
+      flex: 0.4,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: ({ row }) => row?.phone,
     },
     {
       field: 'email',
       headerName: 'Email',
-      flex: 1,
+      flex: 0.8,
       renderCell: ({ row }) => row?.email,
     },
     {
       field: 'status',
       headerName: 'Trạng thái',
-      flex: 1,
+      flex: 0.6,
+      headerAlign: 'center',
+      align: 'center',
       renderCell: ({ row }) => {
         return row?.status
       },
